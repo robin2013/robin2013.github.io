@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>ARM笔记</title>
+  <meta name="description" content="ARM笔记">
+  <meta name="author" content="leopardpan">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ARM笔记">
+  <meta name="twitter:description" content="ARM笔记">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="ARM笔记">
+  <meta property="og:description" content="ARM笔记">
+  
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2022/04/ARM/">
+  <link rel="alternate" type="application/rss+xml" title="Robin Cui" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+
+<!-- 站点统计 -->
+  <script 
+  async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>  
+
+<!-- 百度统计 -->
+  
+
+<!-- google 统计 -->
+  
+
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9005224472374751",
+    enable_page_level_ads: true
+  });
+</script>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">        
+      <div class="nav_container">
+         <nav class="nav-menu-item" style = "float:right">
+            <i class="nav-menu-item">
+              <a href="/#blog" title="" class="blog-button">  博客主页
+              </a>
+            </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/archive" title="archive" class="btn-mobile-menu__icon">
+                      所有文章
+                  </a>
+                </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/tags" title="tags" class="btn-mobile-menu__icon">
+                      标签
+                  </a>
+                </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/support" title="support" class="btn-mobile-menu__icon">
+                      技术支持
+                  </a>
+                </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/about" title="about" class="btn-mobile-menu__icon">
+                      关于我
+                  </a>
+                </i>
+            
+          </nav>
+      </div>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+        <!-- 头像效果-start -->
+        <div class="ih-item circle effect right_to_left">            
+            <a href="/#blog" title="前往 Robin Cui 的主页" class="blog-button">
+                <div class="img"><img src="/images/avatar.jpg" alt="img"></div>
+                <div class="info">
+                    <div class="info-back">
+                        <h2> 
+                            
+                                Robin
+                            
+                        </h2>
+                        <p>
+                           
+                                iOS / 机器学习
+                            
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!-- 头像效果-end -->
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Robin Cui" class="blog-button">Robin Cui</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">个人站</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">欢迎来到我的个人站~</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客主页</a></li>
+                
+                  <li class="navigation__item"><a href="/archive" title="archive">所有文章</a></li>
+                
+                  <li class="navigation__item"><a href="/tags" title="tags">标签</a></li>
+                
+                  <li class="navigation__item"><a href="/support" title="support">技术支持</a></li>
+                
+                  <li class="navigation__item"><a href="/about" title="about">关于我</a></li>
+                
+              </ul>
+            </nav>
+          </div>          
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-clear"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <head>
+  <link rel="stylesheet" href="/css/post.css">
+</head>
+
+<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title">ARM笔记</h1>
+    <div class="post-meta">
+      <img src="/images/calendar.png" width="20px"/> 
+      <time datetime="2022-04-16 15:12:52 +0800" itemprop="datePublished" class="post-meta__date date">2022-04-16</time>  
+
+      <span id="busuanzi_container_page_pv"> | 阅读：<span id="busuanzi_value_page_pv"></span>次</span>
+    </p>
+    </div>
+  </header>
+
+  
+    <h2 class="post-title">目录</h2>
+    <ul>
+  <li><a href="#arm笔记">ARM笔记</a>
+    <ul>
+      <li><a href="#1-寄存器">1. 寄存器</a></li>
+      <li><a href="#2-指令后缀">2 指令后缀</a>
+        <ul>
+          <li><a href="#21-位数">2.1 位数</a></li>
+          <li><a href="#212----ss标识影响cpsr里的nzcv标识位">2.1.2    S(S标识)：影响CPSR里的NZCV标识位</a></li>
+          <li><a href="#213----后缀">2.1.3    “！”后缀</a></li>
+          <li><a href="#214--条件后缀">2.1.4  条件后缀</a></li>
+        </ul>
+      </li>
+      <li><a href="#3-汇编指令">3. 汇编指令</a>
+        <ul>
+          <li><a href="#31-算术运算指令">3.1 算术运算指令</a></li>
+          <li><a href="#32-跳转指令">3.2 跳转指令</a>
+            <ul>
+              <li><a href="#321-无条件跳转label指令">3.2.1 无条件跳转label指令</a></li>
+              <li><a href="#322-无条件跳转register指令">3.2.2 无条件跳转register指令</a></li>
+              <li><a href="#323-条件跳转指令">3.2.3 条件跳转指令</a></li>
+            </ul>
+          </li>
+          <li><a href="#33-逻辑指令">3.3 逻辑指令</a></li>
+          <li><a href="#34-数据传输指令">3.4 数据传输指令</a></li>
+          <li><a href="#35-地址偏移指令">3.5 地址偏移指令</a></li>
+          <li><a href="#36-移位指令">3.6 移位指令</a></li>
+          <li><a href="#37-加载存储指令">3.7 加载/存储指令</a>
+            <ul>
+              <li><a href="#371-存取指令的寻址模式">3.7.1 存取指令的寻址模式</a></li>
+              <li><a href="#372-load-store-pair">3.7.2 Load-Store Pair</a></li>
+            </ul>
+          </li>
+          <li><a href="#38-软中断指令">3.8 软中断指令</a></li>
+        </ul>
+      </li>
+      <li><a href="#4指令格式">4.指令格式</a>
+        <ul>
+          <li><a href="#41--指令的基本格式及说明">4.1  指令的基本格式及说明</a></li>
+          <li><a href="#42-指令条件域">4.2 指令条件域</a></li>
+          <li><a href="#43-更多指令结构">4.3 更多指令结构</a></li>
+        </ul>
+      </li>
+      <li><a href="#5汇编内联语法">5.汇编内联语法</a>
+        <ul>
+          <li><a href="#51c文件编译指令">5.1c文件编译指令</a></li>
+        </ul>
+      </li>
+      <li><a href="#arm体系下的gcc内联汇编">ARM体系下的GCC内联汇编</a>
+        <ul>
+          <li><a href="#gcc4中内联汇编修饰符">GCC4中内联汇编修饰符</a></li>
+          <li><a href="#常见内联代码说明">常见内联代码说明</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+  
+
+  <section class="post">
+    <h1 id="arm笔记">ARM笔记</h1>
+
+<p><a href="https://blog.51cto.com/u_15278218/2930981">ARM64汇编语言学习笔记</a></p>
+
+<p><a href="https://blog.51cto.com/u_15278218/2930963">ARMv8-A64指令集总结和学习</a></p>
+
+<p><a href="https://cloud.tencent.com/developer/article/1768866">iOS逆向之ARM64汇编基础</a></p>
+
+<p><a href="https://blog.csdn.net/weixin_38669561/article/details/107279528">ARMv8(aarch64)指令集特性</a></p>
+
+<p><a href="https://www.cnblogs.com/rongmouzhang/p/9707516.html">ARM指令集, 机器码</a></p>
+
+<p><a href="https://blog.csdn.net/lw2011cg/article/details/65663025?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.no_search_link&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.no_search_link">ARM指令格式</a></p>
+
+<p><a href="https://ayesawyer.github.io/2019/08/26/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4/">ARM汇编基本指令</a></p>
+
+<p><a href="https://blog.csdn.net/zqixiao_09/article/details/50776191">ARM 软中断指令SWI</a></p>
+
+<p><a href="https://muzico.gitee.io/niao/15701134073849.html#toc_63">ARM汇编（二）基本指令</a></p>
+
+<p><a href="https://juejin.cn/post/6844903920767074318">编码</a>
+<a href="https://blog.cnbluebox.com/blog/2017/07/24/arm64-start/?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io">入门</a></p>
+
+<h2 id="1-寄存器">1. 寄存器</h2>
+
+<p><img src="https://s6.51cto.com/images/blog/202106/21/5007b29c17125c2dc989e73f4b4b1d4c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="寄存器" /></p>
+
+<p>ARM处理器共有37个寄存器，被分为若干个组（BANK），这些寄存器包括：</p>
+
+<p>(1). 31个通用寄存器，包括程序计数器（PC指针）</p>
+<blockquote>
+  <ul>
+    <li>X0~X7：用于传递子程序参数和结果，使用时不需要保存，多余参数采用堆栈传递，64位返回结果采用X0表示，128位返回结果采用X1:X0表示;X0寄存器也用来存放函数的返回值。</li>
+    <li>X8：用于保存子程序返回地址， 尽量不要使用 。</li>
+    <li>X9~X15：临时寄存器，使用时不需要保存。</li>
+    <li>X16~X17：子程序内部调用寄存器，使用时不需要保存，尽量不要使用。</li>
+    <li>X18：平台寄存器，它的使用与平台相关，尽量不要使用。</li>
+    <li>X19~X28：临时寄存器，使用时必须保存。</li>
+    <li>X29：帧指针寄存器FP（栈底指针），用于连接栈帧，是指向栈底的寄存器,使用时需要保存。用于标识栈的底部，以免读取栈数据时“越界”。</li>
+    <li>X30：全称Link Register，链接寄存器，即X30。x30无法像普通寄存器那样拆分出低32位来单独使用。LR寄存器用于存放函数跳转前的下一条指令的地址，方便函数执行完后返回到函数的下一条指令继续执行。或者说，LR存储着函数调用完成时的返回地址，用于做函数调用栈跟踪。程序在崩溃时能够将函数调用栈打印出来就是借助LR寄存器来实现的。</li>
+  </ul>
+</blockquote>
+
+<p>(2). 状态寄存器，用以标识CPU的工作状态及程序的运行状态，均为32位，只使用了其中的一部分。</p>
+<blockquote>
+  <ul>
+    <li>SP(X31)：全称Stack Pointer，栈指针寄存器，指向栈的顶部。其32位版为WSP</li>
+    <li>PC：全称program counter，程序计数器。用于存储将要执行的下一条指令的内存地址。通常在调试状态下看到的PC值都是当前断点处的地址。所以很多人认为PC用于存储CPU当前执行的指令的地址，记录CPU当前执行的是哪一条指令，实际上这种理解是错误的。</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <blockquote>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LR和PC的完美配合：通常我们调用BL无条件跳转指令时会先将函数跳转前的下一条指令的地址存放到（X30）LR寄存器中（即把函数调用完成时的返回地址存入X30）。 BL跳转到标记处执行函数代码， 代码执行完之后，会跳回LR存储的指令地址处继续执行。那是如何从LR中取出的指令的呢？BL指令中的ret会把LR（X30）寄存器的地址赋值给PC寄存器，这样CPU取PC寄存器中的指令地址就可以取到执行BL指令跳转前的下一条指令的地址。 程序得以跳回原来的地方继续有序执行。
+这里面程序可以跳回继续执行离不开BL、LR、PC的精诚合作
+</code></pre></div>    </div>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <ul>
+    <li>零寄存器：
+ wzr 32位的零寄存器。可对标 32位的普通寄存器w0~w28
+ xzr 64位的零寄存器。可对标 32位的普通寄存器w0~w28
+ 专门用来存储数字0。比如null、nil、false、NO
+ 因为汇编不支持将立即数存储到一个地址中，所以需要先将立即数存储到寄存器中，然后将寄存器中的数字存储到存储器。如下：</li>
+  </ul>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mov xzr, 0 ; 先把立即数存储到64位的零寄存器xzr中
+str xzr [x1, #0x8] ; 再把xzr中的数据存储到x1+0x8的存储空间中
+</code></pre></div></div>
+<blockquote>
+  <ul>
+    <li>PSTATE 寄存区</li>
+  </ul>
+</blockquote>
+
+<h2 id="2-指令后缀">2 指令后缀</h2>
+
+<h3 id="21-位数">2.1 位数</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       B(byte)：功能不变，操作长度变为8位(依赖CPU位数，以下相同)
+
+       H(Halfword)：功能不变，操作长度变为16位
+</code></pre></div></div>
+
+<p>例如： <code class="language-plaintext highlighter-rouge">ldr指令族：ldrb,ldrh,ldrsb ldrsh，从内存中加载指定长度的数据</code></p>
+
+<h3 id="212----ss标识影响cpsr里的nzcv标识位">2.1.2    S(S标识)：影响CPSR里的NZCV标识位</h3>
+
+<p>指令中使用”S“后缀时、指令执行后程序状态寄存器的条件标志位将被刷新。相当于有符号运算。例如：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SUB    X1，X0，X3       ;X1=X0-X3  ，CPSR值不变
+
+SUBS X1，X0，X3        ;X1=X0-X3 , 如果计算结果为负数，CPSR寄存器的N被置位
+
+</code></pre></div></div>
+
+<h3 id="213----后缀">2.1.3    “！”后缀</h3>
+<p>指令中地址表达式含有“！”后缀时，指令执行后，基址寄存器中的地址值将会发生变化。变化的结果是 (base+offset）。例如：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LDR X3，[X0,#4]       //X3=X0+4
+
+LDR X3，[X0,#4]!      //X3=X0+4; X0+=4；
+</code></pre></div></div>
+<p>注意： “！”不能用于寄存器PC后面</p>
+
+<h3 id="214--条件后缀">2.1.4  条件后缀</h3>
+<p>ARM架构中，允许在指令后面添加条件后缀来完成指令条件执行的目的。指令条件执行就是说，指令根据CPSR中条件码的状态和指令的条件域有条件的执行。当指令的执行条件满足时，指令被执行，否则指令将被忽略。例如比较下面两条指令：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ADD X4，X2，#1                    ; 无条件执行 X4=X2+1
+
+ADDEQ  X4，X2，#1             ;添加有条件执行后缀EQ，当CPSR中的Z标志置位（之前某条CMP结果相等）时，该指令才执行。
+</code></pre></div></div>
+<p>注意：如果条件后缀和“S”标识同时出现，则S在条件后缀的后面，例如：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ADDEQS  X4，X2，#1          ;即为有条件执行X4=X2+1，结果更新条件标志位
+</code></pre></div></div>
+<p>ARM中支持的条件后缀（条件码）共16种（系统保留1种，剩下15种可用），具体标志和功能如下表：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>指令码</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>EQ</td>
+      <td>Z置位 ;结果相等才执行</td>
+    </tr>
+    <tr>
+      <td>NE</td>
+      <td>Z清零，结果不相等才执行</td>
+    </tr>
+    <tr>
+      <td>CS</td>
+      <td>C置位，结果无符号&gt;= 才执行</td>
+    </tr>
+    <tr>
+      <td>CC</td>
+      <td>C清零，结果无符号&lt; 才执行</td>
+    </tr>
+    <tr>
+      <td>MI</td>
+      <td>N置位，结果为负数才执行</td>
+    </tr>
+    <tr>
+      <td>PL</td>
+      <td>N清零，结果为正数或0才执行</td>
+    </tr>
+    <tr>
+      <td>VS</td>
+      <td>V置位，结果溢出才执行</td>
+    </tr>
+    <tr>
+      <td>VC</td>
+      <td>V清零，结果无溢出才执行v</td>
+    </tr>
+    <tr>
+      <td>HI</td>
+      <td>C置位Z清零，结果为无符号数大于才执行v</td>
+    </tr>
+    <tr>
+      <td>LS</td>
+      <td>C清零Z置位，结果为无符号数小于或等于才执行</td>
+    </tr>
+    <tr>
+      <td>GE</td>
+      <td>N等于V，结果为有符号数大于或等于才执行</td>
+    </tr>
+    <tr>
+      <td>LT</td>
+      <td>N不等于V，结果为有符号数小于才执行</td>
+    </tr>
+    <tr>
+      <td>GT</td>
+      <td>Z清零且N等于V ，结果为有符号大于才执行</td>
+    </tr>
+    <tr>
+      <td>LE</td>
+      <td>Z置位或N不等于V ，结果为有符号数小于或等于</td>
+    </tr>
+    <tr>
+      <td>AL</td>
+      <td>无条件执行。省略。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="3-汇编指令">3. 汇编指令</h2>
+
+<h3 id="31-算术运算指令">3.1 算术运算指令</h3>
+
+<ul>
+  <li>ADD：加法运算指令。
+ 把一个寄存器中的数据或立即数与另一个寄存器中的数据或立即数进行相加。例如：</li>
+</ul>
+
+<blockquote>
+  <p>ADD X0, X1, X2 ; 把寄存器X1、X2的值相加后赋值给寄存器X0。即X0 = X1+X2</p>
+</blockquote>
+
+<ul>
+  <li>SUB：减法运算指令。</li>
+</ul>
+
+<p>把一个寄存器中的数据或立即数与另一个寄存器中的数据或立即数进行相减。例如：</p>
+
+<blockquote>
+  <p>SUB X0, X1, X2 ; 把寄存器x1、x2的值相减后赋值给寄存器x0。即x0 = X1-X2</p>
+</blockquote>
+
+<ul>
+  <li>MUL：乘法运算指令。</li>
+</ul>
+
+<p>把一个寄存器中的数据或立即数与另一个寄存器中的数据或立即数进行相乘。例如：</p>
+
+<blockquote>
+  <p>MUL X0, X0, X8 ; 把寄存器x0、x8的值相乘后赋值给寄存器x0。即x0 = X0*X8</p>
+</blockquote>
+
+<ul>
+  <li>SDIV：有符号除法运算指令。</li>
+</ul>
+
+<blockquote>
+  <p>SDIV X0, X0, X1 ; 即X0 = X0 / X1</p>
+</blockquote>
+
+<ul>
+  <li>UDIV：无符号除法运算指令。</li>
+</ul>
+
+<blockquote>
+  <p>UDIV X0, X0, X1 ; 即X0 = X0 / X1</p>
+</blockquote>
+
+<ul>
+  <li>CMP：比较（compare）指令。</li>
+</ul>
+
+<p>把两个寄存器的数据进行相减，不存储结果，只更新CPSR中的标志位。例如：</p>
+
+<blockquote>
+  <p>CMP X28, X0 ; X28与X0相减，不存储结果只更新CPSR中的标志位。 (CPSR即为current program status register)</p>
+</blockquote>
+
+<h3 id="32-跳转指令">3.2 跳转指令</h3>
+
+<p>跳转指令分为条件跳转和无条件跳转。条件跳转即若条件为真则跳转。无条件跳转是直接跳转到某个位置执行指令。无条件跳转可以类比函数调用。</p>
+
+<h4 id="321-无条件跳转label指令">3.2.1 无条件跳转label指令</h4>
+
+<p>(偏移范围为 : ±128MiB)</p>
+
+<ul>
+  <li>B：无条件跳转指令。例如：</li>
+</ul>
+
+<blockquote>
+  <p>B label ; 跳转到label标签处开始执行</p>
+</blockquote>
+
+<ul>
+  <li>BL：无条件跳转指令。</li>
+</ul>
+
+<p>与B相比，执行BL前返回地址会被保存到X30（LR）寄存器。BL执行完后会把LR保存的地址赋值给PC寄存器。这样就可以回到BL跳转前的位置继续向下执行。。BL实例：</p>
+
+<blockquote>
+  <p>BL label ;</p>
+</blockquote>
+
+<ul>
+  <li>RET：子程序返回指令。
+  返回地址默认保存在X30（LR）寄存器</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>为什么B指令跳转的代码中有ret也回不到跳转前的下一条指令呢？
+ 原因是B指令在跳转前没有像BL指令那样把下一条指令的地址存储到LR（x30）寄存器中，所以B的ret就不能从LR寄存器中读出正确的地址赋值个PC寄存器。
+</code></pre></div></div>
+
+<h4 id="322-无条件跳转register指令">3.2.2 无条件跳转register指令</h4>
+<p>(偏移范围为 : 无限制)</p>
+
+<ul>
+  <li>
+    <p>br Xn
+跳转到寄存器</p>
+  </li>
+  <li>
+    <p>blr Xn
+寄存器跳转。跳转前把返回地址放入x30(LR)中长跳转range 2的64次方-1</p>
+  </li>
+  <li>
+    <p>ret {Xn}</p>
+  </li>
+</ul>
+
+<h4 id="323-条件跳转指令">3.2.3 条件跳转指令</h4>
+<p>(偏移范围为±1MiB)</p>
+
+<ul>
+  <li>b.cond label</li>
+</ul>
+
+<p>b.cond的condition条件</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>操作码</th>
+      <th>条件码助记符</th>
+      <th>标志</th>
+      <th>含义</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0000</td>
+      <td>EQ</td>
+      <td>Z=1</td>
+      <td>相等</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0001</td>
+      <td>NE(Not Equal)</td>
+      <td>Z=0</td>
+      <td>不相等</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0010</td>
+      <td>CS/HS(Carry Set/High or Same)</td>
+      <td>C=1</td>
+      <td>无符号数大于或等于</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0011</td>
+      <td>CC/LO(Carry Clear/LOwer)</td>
+      <td>C=0</td>
+      <td>无符号数小于</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0100</td>
+      <td>MI(MInus)</td>
+      <td>N=1</td>
+      <td>负数</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0101</td>
+      <td>PL(PLus)</td>
+      <td>N=0</td>
+      <td>正数或零</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0110</td>
+      <td>VS(oVerflow set)</td>
+      <td>V=1</td>
+      <td> </td>
+      <td>溢出</td>
+    </tr>
+    <tr>
+      <td>0111</td>
+      <td>VC(oVerflow clear)</td>
+      <td>V=0</td>
+      <td>没有溢出</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>1000</td>
+      <td>HI(HIgh)</td>
+      <td>C=1,Z=0</td>
+      <td>无符号数大于</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>1001</td>
+      <td>LS(Lower or Same)</td>
+      <td>C=0,Z=1</td>
+      <td>无符号数小于或等于</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>1010</td>
+      <td>GE(Greater or Equal)</td>
+      <td>N=V</td>
+      <td>有符号数大于或等于</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>1011</td>
+      <td>LT(Less Than)</td>
+      <td>N!=V</td>
+      <td>有符号数小于</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>1100</td>
+      <td>GT(Greater Than)</td>
+      <td>Z=0,N=V</td>
+      <td>有符号数大于</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>1101</td>
+      <td>LE(Less or Equal)</td>
+      <td>Z=1,N!=V</td>
+      <td>有符号数小于或等于</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>1110</td>
+      <td>AL</td>
+      <td>任何</td>
+      <td>无条件执行(默认)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>1111</td>
+      <td>NV</td>
+      <td>任何</td>
+      <td>从不执行</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>例如:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    mrs     x2, esr_el1
+        mrs     x3, sp_el0
+        lsr     x2, x2, #ESR_EC_SHIFT
+        cmp     x2, #ESR_EC_AARCH64_SVC
+        b.eq    el0_svc    //-----------b.cond的应用
+        b       el0_sync_abort
+
+</code></pre></div></div>
+<ul>
+  <li>
+    <p>cbz Xn|Wn, label
+比较Rt结果为零（Zero）则跳转</p>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>cbnz Xn</td>
+          <td>Wn, label</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FUNC __cpu_spin_trylock , :
+        mov     x1, x0
+        mov     w2, #SPINLOCK_LOCK
+.loop:  ldaxr   w0, [x1]
+        cbnz    w0, .cpu_spin_trylock_out  //------相当于是在检查参数的合法性，lock==NULL时直接返回
+        stxr    w0, w2, [x1]
+        cbnz    w0, .loop
+.cpu_spin_trylock_out:
+        ret
+END_FUNC __cpu_spin_trylock
+
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>tbz Xn</td>
+          <td>Wn, #uimm6, label //如果Xn的第uimm的bit位位0，则跳转到label</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>tbnz Xn</td>
+          <td>Wn, #uimm6, label</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LOCAL_FUNC el1_sync_abort , :
+        mov     x0, sp
+        msr     spsel, #0
+        ldr     w1, [x0, #THREAD_CORE_LOCAL_FLAGS]
+        lsl     w1, w1, #THREAD_CLF_SAVED_SHIFT
+        orr     w1, w1, #THREAD_CLF_ABORT
+        tbnz    w1, #(THREAD_CLF_SAVED_SHIFT + THREAD_CLF_ABORT_SHIFT), \  //--------------tbnz的使用
+                        .Lsel_tmp_sp
+
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>BX 
+跳转同时切换到ARM模式，用于异常处理的跳转</p>
+  </li>
+  <li>
+    <p>BEQ</p>
+    <blockquote>
+      <p>CPSR中Z置位则跳转</p>
+    </blockquote>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> cmp     w0, #15     //将(w0-15)结果更新CPSR标志位
+ beq     label           //如果(w0==15) ,则跳转到lable
+</code></pre></div></div>
+<h3 id="33-逻辑指令">3.3 逻辑指令</h3>
+<ul>
+  <li>AND：逻辑与运算指令。例如：</li>
+</ul>
+
+<blockquote>
+  <p>AND X0, X1, X2 ; X1和X2寄存器的数据进行逻辑与运算结果保存到X0中。即：X0 = X1 &amp; X2</p>
+</blockquote>
+
+<ul>
+  <li>ORR：逻辑或运算指令。例如：</li>
+</ul>
+
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td>ORR X0, X1, X2 ; X1和X2寄存器的数据进行逻辑或运算结果保存到X0中。即：X0 = X1</td>
+        <td>X2</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<ul>
+  <li>EOR：逻辑抑或运算指令（else or）。例如：</li>
+</ul>
+
+<blockquote>
+  <p>EOR X0, X1, X2 ; X1和X2寄存器的数据进行逻辑抑或运算结果保存到X0中。即：X0 = X1 ^ X2</p>
+</blockquote>
+
+<ul>
+  <li>BIC 位清除操作
+    <blockquote>
+      <p>BIC X0，X0 #9    ;这里十进制数9对应的二进制数为101 ，故实现将寄存器X0的第0位和第3位清零。</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h3 id="34-数据传输指令">3.4 数据传输指令</h3>
+
+<ul>
+  <li>MOV：把寄存器中的数据存储到另外一个寄存器中。例如：</li>
+</ul>
+
+<blockquote>
+  <p>MOV X19, X1 ; 把寄存器X1 中的数据存储到寄存器X19中。即 X1 = X19</p>
+</blockquote>
+
+<ul>
+  <li>MVN: 	取反赋值. 例如:</li>
+</ul>
+
+<blockquote>
+  <p>MVN X1，X2 ;将寄存器X2取反后传送给寄存器X1</p>
+</blockquote>
+
+<p>其他常用数据传输指令还有：MOVZ、MOVN、MOVK。</p>
+
+<h3 id="35-地址偏移指令">3.5 地址偏移指令</h3>
+
+<ul>
+  <li>ADR：小范围的地址读取指令。ADR 指令将基于PC 相对偏移的地址值读取到寄存器中。例如：</li>
+</ul>
+
+<blockquote>
+  <p>ADR Xn, label ; 即Xn = PC + label</p>
+</blockquote>
+
+<ul>
+  <li>ADRP：以页为单位的大范围的地址读取指令，这里的P就是page的意思。
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>内存地址                   汇编指令
+0x102f571bc            adrp   x8， 265
+0x102f571c0            add    x8， x8，#0xa30
+</code></pre></div>    </div>
+
+    <p>(1).  PC寄存器的低12位清零，得到 0x102f57000  （二进制的1位对应16进制的4位，计算机中的内存地址一般用16进制表示，0x开头表示16进制数，所以后16进制数的后三位清零）</p>
+
+    <p>注：PC寄存器中存储的地址是当前要执行的指令地址，低12位清零，代表当前内存页的起始地址</p>
+
+    <p>(2). 将十进制数265，转化为16进制数，结果为0x109，0x109左移12位，得到0x109000</p>
+
+    <p>注： adrp   x8， 265中的265表示距离当前内存页265页，每一页为4K，即2的12次方。一个数乘以2的12次方，计算机中即是左移12位，即低12位为0。16进制中即低3位为0.</p>
+
+    <p>(3). 将上述步骤一和步骤二中得到的16进制数相加，得到0x103060000，将0x103060000放入 x8 寄存器</p>
+
+    <p>(4). 将x8寄存器中的地址值加上0xa30，得到的结果0x103060a30放入到x8寄存器。</p>
+  </li>
+</ul>
+
+<h3 id="36-移位指令">3.6 移位指令</h3>
+
+<ul>
+  <li>LSL	逻辑左移
+    <blockquote>
+      <p>LSL Wd, Wn, Wm ; 32-bit
+LSL Xd, Xn, Xm ; 64-bit</p>
+    </blockquote>
+  </li>
+  <li>LSR	逻辑右移
+    <blockquote>
+      <p>LSR Wd, Wn, Wm ; 32-bit
+LSR Xd, Xn, Xm ; 64-bit</p>
+    </blockquote>
+  </li>
+  <li>ASR	算术右移
+    <blockquote>
+      <p>ASR Wd, Wn, Wm ; 32-bit
+ASR Xd, Xn, Xm ; 64-bit</p>
+    </blockquote>
+  </li>
+  <li>ROR	循环右移
+    <blockquote>
+      <p>ROR Wd, Wn, Wm ; 32-bit
+ROR Xd, Xn, Xm ; 64-bit
+例如 :</p>
+    </blockquote>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LSL     w1, w1, #1          ;将寄存器W1逻辑左移1位后，赋值给W1
+
+MOV X0，X1，LSL#1   ;将寄存器X1左移1位后赋值给X0。
+
+MOVS X0，X1，LSR#1  ;将寄存器X1逻辑右移1位后的值赋值给X0，如果X0结果为0，则置寄存器CPSR的N位
+
+</code></pre></div></div>
+
+<h3 id="37-加载存储指令">3.7 加载/存储指令</h3>
+
+<ul>
+  <li>加载（load）、存储（store）指令都是成对出现的</li>
+  <li>无论是加载还是存储相关的指令，指令后面都只能写寄存器，不能把寄存器放到指令行的最后面。</li>
+</ul>
+
+<p>术语：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sign-extends ：符号扩展，前面补符合位和0
+zero-extends ：0扩展，即前面补0
+
+S : sign-extends
+B : byte
+H : half-word
+R ：register
+P : pair 双字操作
+
+LDPSW Xt1, Xt2, addr  //从addr处读取两个word到Xt1和Xt2， sign-extends
+
+</code></pre></div></div>
+
+<h4 id="371-存取指令的寻址模式">3.7.1 存取指令的寻址模式</h4>
+
+<ul>
+  <li>[Rn, offset]! 前变址寻址
+    <blockquote>
+      <p>最终访问内存的地址 = Rn+offset, 操作后Rn的值 = Rn+offset</p>
+    </blockquote>
+  </li>
+  <li>[Rn], offset 后变址寻址
+    <blockquote>
+      <p>最终访问内存的地址 = Rn, 操作后Rn的值 = Rn+offset</p>
+    </blockquote>
+  </li>
+  <li>[Rn, offset] 偏移寻址
+    <blockquote>
+      <p>最终访问内存的地址 = Rn+offset,操作后Rn的值不变</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h4 id="372-load-store-pair">3.7.2 Load-Store Pair</h4>
+
+<p>LDR、LDUR、LDP都是和加载相关的指令。即把内存中的数据读取到寄存器中。LD即为load的缩写，R即为register的缩写，P即为pair的缩写，即同时操作两个寄存器。</p>
+
+<ul>
+  <li>LDR &amp; LDUR ：从内存中读取8/4字节数据到一个64/32位寄存器中，即从源寄存器中读取数据写入目的寄存器。LDUR中的“U”是unscaled的缩写，代表不需要按字节对齐。LDUR和LDR指令的区别：可以简单理解为地址偏移量为负数则使用LDUR，偏移量为正数则使用LDR。例如：
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LDR X1, [sp, #0x28] ; 从SP+ 0x28处开始读取8字节数据到X1寄存器中。
+LDUR X30, [X29, #-0x10] ; 从X29 - 0x10出开始读取8字节数据到X30（LR）寄存器中。
+</code></pre></div>    </div>
+  </li>
+  <li>LDP：从内存中读取数据放到两个寄存器中。例如：</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; LDP  w0, w1, [x0, #0x10] ; 读取x0+0x10内存的字数据，然后四个字节赋值给w0， 另外四个字节赋值给w1
+</code></pre></div></div>
+
+<ul>
+  <li>STR、STUR、STP都是和存储相关的指令。即把寄存器中的数据写入内存中。ST即为store的缩写，R即为register的缩写，P即为pair的缩写，即同时操作两个寄存器。</li>
+</ul>
+
+<p>STR &amp; STUR：将寄存器中的数据写入内存中，即把源寄存器的内容写入目的寄存器。STR&amp;STUR的区别和LDR&amp;LDUR的区别类似。如下：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>STR X0, [sp, #0x28] ; 将X0寄存器中的数据写入SP + 0x28的位置。
+STUR X0, [sp, #-0x10] ; 将X0寄存器中的数据写入SP - 0x10的位置。
+</code></pre></div></div>
+<ul>
+  <li>STP：将两个寄存器的数据写入内存中。例如：</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>STP X1, X2, [X0, #0x28]; 将X1和X2的数据 写入 X0+#0x28的位置
+
+</code></pre></div></div>
+<h3 id="38-软中断指令">3.8 软中断指令</h3>
+
+<ul>
+  <li>SVC</li>
+</ul>
+
+<p>软件中断, swi(software interrupt)，在软件层模拟产生一个中断，这个中断会传送给CPU，常用于实现系统调用。类似于mips架构的syscall指令。</p>
+<blockquote>
+  <p>SVC{cond} #imm</p>
+</blockquote>
+
+<h2 id="4指令格式">4.指令格式</h2>
+
+<h3 id="41--指令的基本格式及说明">4.1  指令的基本格式及说明</h3>
+<p>ARM是三地址指令格式，指令的基本格式为：</p>
+
+<p><code class="language-plaintext highlighter-rouge">&lt;opcode&gt;   </code>{<cond>} {s}  <Rd>, <Rn>  {,<operand2>}`</operand2></Rn></Rd></cond></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>31-28</th>
+      <th>27-25</th>
+      <th>21-24</th>
+      <th>20</th>
+      <th>19-16</th>
+      <th>15-12</th>
+      <th>11-0（12位）</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>cond</td>
+      <td>001</td>
+      <td>opcode</td>
+      <td>S</td>
+      <td>Rn</td>
+      <td>Rd</td>
+      <td>shifter_operand</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>其中&lt;&gt;号内的项是必须的，{}号内的项是可选的。各项说明如下：</p>
+
+<ul>
+  <li>
+    <p>opcode:  指令助记符；</p>
+  </li>
+  <li>
+    <p>cond:  执行条件；</p>
+  </li>
+  <li>
+    <p>s: 是否影响CPSR寄存器的值；</p>
+  </li>
+  <li>
+    <p>Rd:  目标寄存器；</p>
+  </li>
+  <li>
+    <p>Rn:  第一个操作数的寄存器；</p>
+  </li>
+  <li>
+    <p>operand2:  第二个操作数；</p>
+  </li>
+</ul>
+
+<p>条件码“cond”的使用可以实现高效的逻辑操作（节省跳转和条件语句），提高代码效率。所有的ARM指令都可以条件执行，</p>
+
+<p>而THUMB指令只有B(跳转)指令具有条件执行功能。如果指令不标明条件代码，将默认为无条件（AL）执行。</p>
+
+<h3 id="42-指令条件域">4.2 指令条件域</h3>
+<p>| 操作码	| 条件码助记符 | 标志 | 含义 |
+| —— | —— | —— | —— |
+| 0000  | EQ | Z=1 | 相等 |
+| 0001	| NE(Not Equal)                	| Z=0	| 不相等|
+| 0010	| CS/HS(Carry Set/High or Same)	| C=1	| 无符号数大于或等于|
+| 0011	| CC/LO(Carry Clear/LOwer)     | C=0	| 无符号数小于
+| 0100	| MI(MInus)	                   | N=1   | 负数|
+| 0101	| PL(PLus)						| N=0	| 正数或零|
+| 0110	| VS(oVerflow set)				| V=1|	| 溢出|
+| 0111	| VC(oVerflow clear)			| V=0	| 没有溢出|
+| 1000	| HI(HIgh)						| C=1,Z=0 | 无符号数大于|
+| 1001	| LS(Lower or Same)				| C=0,Z=1	| 无符号数小于或等于|
+| 1010	| GE(Greater or Equal)			|	 N=V	| 有符号数大于或等于|
+| 1011	| LT(Less Than)					| N!=V|	 有符号数小于|
+| 1100	| GT(Greater Than)				| Z=0,N=V	| 有符号数大于|
+| 1101	| LE(Less or Equal)				| Z=1,N!=V	| 有符号数小于或等于|
+| 1110	| AL							| 任何	| 无条件执行(默认)|
+| 1111	| NV							| 任何	| 从不执行|</p>
+
+<h3 id="43-更多指令结构">4.3 更多指令结构</h3>
+<p><a href="https://developer.arm.com/documentation/ddi0602/2021-09/Base-Instructions?lang=en">参见</a></p>
+
+<h2 id="5汇编内联语法">5.汇编内联语法</h2>
+
+<h3 id="51c文件编译指令">5.1c文件编译指令</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>`clang -S -arch arm64 -isysroot `xcrun --sdk iphoneos --show-sdk-path` xxx.c`
+</code></pre></div></div>
+
+<h2 id="arm体系下的gcc内联汇编">ARM体系下的GCC内联汇编</h2>
+<p><a href="https://www.cnblogs.com/pengdonglin137/p/3328141.html">参见</a></p>
+
+<p>GCC规定了一个内联汇编的语法，不同硬件平台上的GCC内联汇编几乎都是这样的：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+asm(
+    汇编指令列表
+    :输出运算符列表
+    :输入运算符列表
+    :被更改的资源列表
+};
+
+
+</code></pre></div></div>
+<p>在GCC中插入汇编代码，需要以asm关键字开头，中间四个部分用”:”分隔，如果你嵌入的汇编没有输入输出，或者更改资源，后面三项是可以省略的。</p>
+
+<h3 id="gcc4中内联汇编修饰符">GCC4中内联汇编修饰符</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>修饰符</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>无</td>
+      <td>被修饰的操作符是只读的</td>
+    </tr>
+    <tr>
+      <td>=</td>
+      <td>被修饰的操作符只写</td>
+    </tr>
+    <tr>
+      <td>+</td>
+      <td>被修饰的操作符具有可读写的属性</td>
+    </tr>
+    <tr>
+      <td>&amp;</td>
+      <td>被修饰的操作符只能作为输出</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="常见内联代码说明">常见内联代码说明</h3>
+
+<p><strong><em>代码1</em></strong> 不带有输入,输出的代码解析</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#ifdef __arm64__
+        asm volatile(
+            "mov x0,#26\n"  ; 将系统服务号26放入x1
+            "mov x1,#31\n"	 ; 第二个参数
+            "mov x2,#0\n"	 ; 第三个参数
+            "mov x3,#0\n"	 ; 第四个参数
+            "mov x16,#0\n"	 ; 将系统服务号SYS_syscall(0)存入x16
+            "svc #128\n"	 ; 执行软中断(SVC 命令后边的立即数会被忽略, 任何值都可以, 业界默认是#80)
+        );
+</code></pre></div></div>
+
+<p><strong><em>代码2</em></strong> 带有输入,输出的代码解析</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> __asm__ volatile (
+                             "mov x0, %2\n"  ; 将第三个操作数(path)放入x0
+                             "mov x1, %3\n" ; 将第四个个操作数(fileinfo)放入x0
+                             "mov w16, %w1\n" ; 将第二个操作数(SYS_stat, 系统服务号)放入X16低四位
+                             "svc #0x80\n" ; 执行SYS_stat调用
+                             "mov %w0, w0\n" 将x0低四位的值(返回值)放入第一个操作数(ret)
+                             :"=r"(ret)  ; 输出操作数列表(只写)
+                             :"r"(SYS_stat), "r"(path), "r"(&amp;fileInfo) ; 输入操作数列表
+                             );
+</code></pre></div></div>
+
+  </section>
+
+</article>
+
+<section>
+
+            <div class="content-play">
+              <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang" title="打赏，支持一下">打赏一个呗</a></p>
+              <div class="hide_box-play"></div>
+              <div class="shang_box-play">
+                <a class="shang_close-play" href="javascript:void(0)" onclick="dashangToggle()" title="关闭"><img src="/images/payimg/close.jpg" alt="取消" /></a>
+                <div class="shang_tit-play">
+                  <p>感谢您的支持，我会继续努力的!</p>
+                </div>
+                <div class="shang_payimg">
+                    <img src="/images/payimg/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+                </div>
+              <div class="shang_payimg">    
+                    <img src="/images/payimg/weipayimg.jpg" alt="扫码支持" title="扫一扫" />
+                </div>
+                <div class="pay_explain">扫码打赏，你说多少就多少</div>
+                <div class="shang_payselect">
+                  <div class="pay_item checked" data-id="alipay">
+                    <span class="pay_logo"><img src="/images/payimg/alipay.jpg" alt="支付宝" /></span>
+                  </div>
+                  <div class="pay_item" data-id="weipay">
+                    <span class="pay_logo"><img src="/images/payimg/wechat.jpg" alt="微信" /></span>
+                  </div>
+                </div>
+                <div class="shang_info-play">
+                  <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+                </div>
+              </div>
+            </div>
+            <script type="text/javascript">
+            function dashangToggle(){
+              $(".hide_box-play").fadeToggle();
+              $(".shang_box-play").fadeToggle();
+            }
+            </script>
+
+            <div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';"></div>
+
+            <style type="text/css">
+              .content-play{width:80%;margin-top: 20px;margin-bottom: 10px;height:40px;}
+              .hide_box-play{z-index:999;filter:alpha(opacity=50);background:#666;opacity: 0.5;-moz-opacity: 0.5;left:0;top:0;height:99%;width:100%;position:fixed;display:none;}
+              .shang_box-play{width:540px;height:540px;padding:10px;background-color:#fff;border-radius:10px;position:fixed;z-index:1000;left:50%;top:50%;margin-left:-280px;margin-top:-280px;border:1px dotted #dedede;display:none;}
+              .shang_box-play img{border:none;border-width:0;}
+              .dashang{display:block;width:100px;margin:5px auto;height:25px;line-height:25px;padding:10px;background-color:#E74851;color:#fff;text-align:center;text-decoration:none;border-radius:10px;font-weight:bold;font-size:16px;transition: all 0.3s;}
+              .dashang:hover{opacity:0.8;padding:15px;font-size:18px;}
+              .shang_close-play{float:right;display:inline-block;
+                margin-right: 10px;margin-top: 20px;
+              }
+              .shang_logo{display:block;text-align:center;margin:20px auto;}
+              .shang_tit-play{width: 100%;height: 75px;text-align: center;line-height: 66px;color: #a3a3a3;font-size: 16px;background: url('/images/payimg/cy-reward-title-bg.jpg');font-family: 'Microsoft YaHei';margin-top: 7px;margin-right:2px;}
+              .shang_tit-play p{color:#a3a3a3;text-align:center;font-size:16px;}
+              .shang_payimg{width:140px;padding:10px;padding-left: 80px; /*border:6px solid #EA5F00;**/margin:0 auto;border-radius:3px;height:140px;display:inline-block;}
+              .shang_payimg img{display:inline-block;margin-right:10px;float:left;text-align:center;width:140px;height:140px; }
+              .pay_explain{text-align:center;margin:10px auto;font-size:12px;color:#545454;}
+              .shang_payselect{text-align:center;margin:0 auto;margin-top:40px;cursor:pointer;height:60px;width:500px;margin-left:110px;}
+              .shang_payselect .pay_item{display:inline-block;margin-right:140px;float:left;}
+              .shang_info-play{clear:both;}
+              .shang_info-play p,.shang_info-play a{color:#C3C3C3;text-align:center;font-size:12px;text-decoration:none;line-height:2em;}
+            </style>
+
+       <ul class="pager">
+        
+        
+        <li class="next">
+            <a href="/2022/04/Apple-Configurator/" data-toggle="tooltip" data-placement="top" title="Apple Configurator 2">下一篇：  <span>Apple Configurator 2</span>
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R87G3J6GFF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-R87G3J6GFF');
+</script>
+
+            <section class="footer">
+    <footer>
+        <div class = "footer_div">  
+        <nav class="cover-navigation navigation--social">
+          <ul class="navigation">
+
+          
+          <!-- Github -->
+          <li class="navigation__item_social">
+            <a href="https://github.com/robin2013" title="@robin2013 的 Github" target="_blank">
+              <div class="footer-social-icon" style="background:url(/images/github.png);"></div>
+            </a>
+          </li>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+
+          
+          <!-- Email -->
+          <li class="navigation__item_social">
+            <a href="mailto:robincui2022@126.com" title="Contact me">
+              <div class="footer-social-icon" style="background:url(/images/email.png);"></div>
+            </a>
+          </li>
+          
+          
+          <!-- RSS -->
+          <li class="navigation__item_social">
+            <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+              <div class="footer-social-icon" style="background:url(/images/rss.png);"></div>
+              <span class="label">RSS</span>
+            </a>
+          </li>
+
+          </ul>
+        </nav>
+
+        </div>
+
+        <div class = "footer_div">  
+           <p class="copyright text-muted">
+            <!-- Copyright &copy; Robin Cui 2022 Theme by <a href="">leopardpan</a> | -->
+            <iframe
+                style="margin-left: 2px; margin-bottom:-5px;"
+                frameborder="0" scrolling="0" width="91px" height="20px"
+                src="" >
+            </iframe>
+            </p>
+        	<div align="right">
+    			<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+          <!-- 访问统计 -->
+          <span id="busuanzi_container_site_pv">
+            本站总访问量
+            <span id="busuanzi_value_site_pv"></span>次
+          </span>
+
+        </div>
+        <div>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+  </body>
+
+</html>

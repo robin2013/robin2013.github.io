@@ -3,10 +3,10 @@
   <channel>
     <title>Robin Cui</title>
     <description>欢迎来到我的个人站~</description>
-    <link>http://cuiyinjiang.com/</link>
-    <atom:link href="http://cuiyinjiang.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 16 Apr 2022 18:08:11 +0800</pubDate>
-    <lastBuildDate>Sat, 16 Apr 2022 18:08:11 +0800</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 16 Apr 2022 21:42:05 +0800</pubDate>
+    <lastBuildDate>Sat, 16 Apr 2022 21:42:05 +0800</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
     
       <item>
@@ -122,8 +122,8 @@ cycript -p 进程id值pid 注入进程 （待机等状态有时会导致注入�
 &lt;a href=&quot;https://bbs.pediy.com/thread-263907.htm&quot;&gt;dumpdecrypted砸壳高版本iOS（如iOS12）的正确姿势&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 16 Apr 2022 15:12:52 +0800</pubDate>
-        <link>http://cuiyinjiang.com/2022/04/iOS_%E7%A0%B8%E5%A3%B3/</link>
-        <guid isPermaLink="true">http://cuiyinjiang.com/2022/04/iOS_%E7%A0%B8%E5%A3%B3/</guid>
+        <link>http://localhost:4000/2022/04/iOS_%E7%A0%B8%E5%A3%B3/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/04/iOS_%E7%A0%B8%E5%A3%B3/</guid>
         
         <category>逆向</category>
         
@@ -217,10 +217,1348 @@ tags: 所属标签
 &lt;a href=&quot;https://www.jekyll.com.cn/docs/configuration/&quot;&gt;jekyll 配置&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 16 Apr 2022 15:12:52 +0800</pubDate>
-        <link>http://cuiyinjiang.com/2022/04/Jekyll/</link>
-        <guid isPermaLink="true">http://cuiyinjiang.com/2022/04/Jekyll/</guid>
+        <link>http://localhost:4000/2022/04/Jekyll/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/04/Jekyll/</guid>
         
         <category>其他</category>
+        
+        
+        <category>jekyll</category>
+        
+      </item>
+    
+      <item>
+        <title>DebugServer</title>
+        <description>&lt;h1 id=&quot;debugserver-调试-app&quot;&gt;DebugServer 调试 App&lt;/h1&gt;
+
+&lt;h2 id=&quot;准备环境&quot;&gt;准备环境:&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;越狱手机一部&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/facebook/chisel&quot;&gt;Chisel&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;lldb &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;brew install lldb&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;ldid &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;brew install ldid&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;2-debugserver&quot;&gt;2 DebugServer&lt;/h2&gt;
+
+&lt;h3 id=&quot;21-获取手机中的debugserver&quot;&gt;2.1 获取手机中的debugServer&lt;/h3&gt;
+
+&lt;p&gt;执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scp root@10.155.27.59:/Developer/usr/bin/debugserver ./debugserver&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;22-查看debugserver权限&quot;&gt;2.2 查看debugserver权限&lt;/h3&gt;
+&lt;p&gt;执行  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ldid -e debugserver&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;23-导出debugserver权限&quot;&gt;2.3 导出debugserver权限&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ldid -e debugserver &amp;gt; debuger.entitlements&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;24-重新签名&quot;&gt;2.4 重新签名&lt;/h3&gt;
+&lt;p&gt;打开&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;debuger.entitlement&lt;/code&gt;,添加权限&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;task_for_pid-allow&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;get-task-allow&lt;/code&gt; 到 ` debuger.entitlements`&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ldid -Sdebuger.entitlements debugserver
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;25-重新导入手机&quot;&gt;2.5 重新导入手机:&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;scp -r debugserver root@10.15.32.45:/usr/bin/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;## 2. iProxy
+ iproxy是usbmuxd附带的一个小工具,它的作用是将设备的某个端口映射到电脑的某个端口, 用来实现通过usb 登录手机(有时候wifi访问太慢),&lt;/p&gt;
+&lt;h3 id=&quot;21-安装软件&quot;&gt;2.1 安装软件&lt;/h3&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew install usbmuxd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;22-启动&quot;&gt;2.2 启动&lt;/h3&gt;
+&lt;p&gt;一般搞越狱时会用来映射iPhone的22端口(ssh端口), 第一个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;12345&lt;/code&gt; 代表本地mac端口, 第二个代表要发送到iPhone的端口(此处发送到mac 12345端口的数据, 会通过 USB 转发到 iPhone 12345 端口)&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iproxy 12345 12345
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;用法很简单:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;第一个参数是你要映射到的电脑端口&lt;/li&gt;
+  &lt;li&gt;第二个是iPhone的端口&lt;/li&gt;
+  &lt;li&gt;UDID一般不用填,会自动获取,不过多设备连接时,需要用于区分设备&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;3-登录手机-debug&quot;&gt;3. 登录手机, debug&lt;/h2&gt;
+
+&lt;h3 id=&quot;31-开启手机-ssh-代理&quot;&gt;3.1 开启手机 ssh 代理&lt;/h3&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iproxy 2222 22
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;32-登录手机&quot;&gt;3.2 登录手机&lt;/h3&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh root@localhost -p 2222
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;33-查找对应app进程信息以wechat-为例&quot;&gt;3.3 查找对应App进程信息(以WeChat 为例)&lt;/h3&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ps -e | grep -i WeChat
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;34-附加app-进程&quot;&gt;3.4 附加App 进程&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;debugserver localhost:12345 -a WeChat
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;此时, 手机端进如等待调试指令阶段&lt;/p&gt;
+
+&lt;h2 id=&quot;4-lldb&quot;&gt;4. lldb&lt;/h2&gt;
+&lt;h3 id=&quot;41-开启lldb&quot;&gt;4.1 开启lldb&lt;/h3&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;在mac 端打开命令窗口, 输入 `lldb`, 进入调试模式 ### 4.2 连接debugserver ``` process connect connect://localhost:12345 ``` 之后进入调试状态, 命令窗口显示相应堆栈信息.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;5-chisel&quot;&gt;5. chisel&lt;/h2&gt;
+
+&lt;h3 id=&quot;51-调试&quot;&gt;5.1 调试&lt;/h3&gt;
+&lt;p&gt;调试的方法有很多, 之前&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lldb&lt;/code&gt;的命令都可以进行调试, 但 &lt;a href=&quot;https://github.com/facebook/chisel&quot;&gt;Chisel&lt;/a&gt; 包含更丰富的调试指令&lt;/p&gt;
+
+&lt;h3 id=&quot;52-chisel-用法&quot;&gt;5.2 chisel 用法&lt;/h3&gt;
+&lt;p&gt;chisel 设置属性方式:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(lldb) p 0x112cf0000
+(long) $4 = 140718754142192
+(lldb) e (void)[$44 setBackgroundColor:[UIColor greenColor]]
+(lldb) caflush
+(lldb) e (void)[$27 setAlpha:1.0]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;53-chisel-其他用法&quot;&gt;5.3 chisel 其他用法&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(lldb) help
+Debugger commands:
+  apropos           -- List debugger commands related to a word or subject.
+  breakpoint        -- Commands for operating on breakpoints (see &apos;help b&apos; for
+                       shorthand.)
+  command           -- Commands for managing custom LLDB commands.
+  disassemble       -- Disassemble specified instructions in the current
+                       target.  Defaults to the current function for the
+                       current thread and stack frame.
+  expression        -- Evaluate an expression on the current thread.  Displays
+                       any returned value with LLDB&apos;s default formatting.
+  frame             -- Commands for selecting and examing the current thread&apos;s
+                       stack frames.
+  gdb-remote        -- Connect to a process via remote GDB server.  If no host
+                       is specifed, localhost is assumed.
+  gui               -- Switch into the curses based GUI mode.
+  help              -- Show a list of all debugger commands, or give details
+                       about a specific command.
+  kdp-remote        -- Connect to a process via remote KDP server.  If no UDP
+                       port is specified, port 41139 is assumed.
+  language          -- Commands specific to a source language.
+  log               -- Commands controlling LLDB internal logging.
+  memory            -- Commands for operating on memory in the current target
+                       process.
+  platform          -- Commands to manage and create platforms.
+  plugin            -- Commands for managing LLDB plugins.
+  process           -- Commands for interacting with processes on the current
+                       platform.
+  quit              -- Quit the LLDB debugger.
+  register          -- Commands to access registers for the current thread and
+                       stack frame.
+  reproducer        -- Commands for manipulating reproducers. Reproducers make
+                       it possible to capture full debug sessions with all its
+                       dependencies. The resulting reproducer is used to replay
+                       the debug session while debugging the debugger.
+                       Because reproducers need the whole the debug session
+                       from beginning to end, you need to launch the debugger
+                       in capture or replay mode, commonly though the command
+                       line driver.
+                       Reproducers are unrelated record-replay debugging, as
+                       you cannot interact with the debugger during replay.
+  script            -- Invoke the script interpreter with provided code and
+                       display any results.  Start the interactive interpreter
+                       if no code is supplied.
+  session           -- Commands controlling LLDB session.
+  settings          -- Commands for managing LLDB settings.
+  source            -- Commands for examining source code described by debug
+                       information for the current target process.
+  statistics        -- Print statistics about a debugging session
+  target            -- Commands for operating on debugger targets.
+  thread            -- Commands for operating on one or more threads in the
+                       current process.
+  trace             -- Commands for loading and using processor trace
+                       information.
+  type              -- Commands for operating on the type system.
+  version           -- Show the LLDB debugger version.
+  watchpoint        -- Commands for operating on watchpoints.
+Current command abbreviations (type &apos;help command alias&apos; for more info):
+  add-dsym  -- Add a debug symbol file to one of the target&apos;s current modules
+               by specifying a path to a debug symbols file or by using the
+               options to specify a module.
+  attach    -- Attach to process by ID or name.
+  b         -- Set a breakpoint using one of several shorthand formats.
+  bt        -- Show the current thread&apos;s call stack.  Any numeric argument
+               displays at most that many frames.  The argument &apos;all&apos; displays
+               all threads.  Use &apos;settings set frame-format&apos; to customize the
+               printing of individual frames and &apos;settings set thread-format&apos;
+               to customize the thread header.
+  c         -- Continue execution of all threads in the current process.
+  call      -- Evaluate an expression on the current thread.  Displays any
+               returned value with LLDB&apos;s default formatting.
+  continue  -- Continue execution of all threads in the current process.
+  detach    -- Detach from the current target process.
+  di        -- Disassemble specified instructions in the current target. 
+               Defaults to the current function for the current thread and
+               stack frame.
+  dis       -- Disassemble specified instructions in the current target. 
+               Defaults to the current function for the current thread and
+               stack frame.
+  display   -- Evaluate an expression at every stop (see &apos;help target
+               stop-hook&apos;.)
+  down      -- Select a newer stack frame.  Defaults to moving one frame, a
+               numeric argument can specify an arbitrary number.
+  env       -- Shorthand for viewing and setting environment variables.
+  exit      -- Quit the LLDB debugger.
+  f         -- Select the current stack frame by index from within the current
+               thread (see &apos;thread backtrace&apos;.)
+  file      -- Create a target using the argument as the main executable.
+  finish    -- Finish executing the current stack frame and stop after
+               returning.  Defaults to current thread unless specified.
+  history   -- Dump the history of commands in this session.
+               Commands in the history list can be run again using &quot;!&amp;lt;INDEX&amp;gt;&quot;. 
+               &quot;!-&amp;lt;OFFSET&amp;gt;&quot; will re-run the command that is &amp;lt;OFFSET&amp;gt; commands
+               from the end of the list (counting the current command).
+  image     -- Commands for accessing information for one or more target
+               modules.
+  j         -- Set the program counter to a new address.
+  jump      -- Set the program counter to a new address.
+  kill      -- Terminate the current target process.
+  l         -- List relevant source code using one of several shorthand formats.
+  list      -- List relevant source code using one of several shorthand formats.
+  n         -- Source level single step, stepping over calls.  Defaults to
+               current thread unless specified.
+  next      -- Source level single step, stepping over calls.  Defaults to
+               current thread unless specified.
+  nexti     -- Instruction level single step, stepping over calls.  Defaults to
+               current thread unless specified.
+  ni        -- Instruction level single step, stepping over calls.  Defaults to
+               current thread unless specified.
+  p         -- Evaluate an expression on the current thread.  Displays any
+               returned value with LLDB&apos;s default formatting.
+  parray    -- parray &amp;lt;COUNT&amp;gt; &amp;lt;EXPRESSION&amp;gt; -- lldb will evaluate EXPRESSION to
+               get a typed-pointer-to-an-array in memory, and will display
+               COUNT elements of that type from the array.
+  po        -- Evaluate an expression on the current thread.  Displays any
+               returned value with formatting controlled by the type&apos;s author.
+  poarray   -- poarray &amp;lt;COUNT&amp;gt; &amp;lt;EXPRESSION&amp;gt; -- lldb will evaluate EXPRESSION to
+               get the address of an array of COUNT objects in memory, and will
+               call po on them.
+  print     -- Evaluate an expression on the current thread.  Displays any
+               returned value with LLDB&apos;s default formatting.
+  q         -- Quit the LLDB debugger.
+  r         -- Launch the executable in the debugger.
+  rbreak    -- Sets a breakpoint or set of breakpoints in the executable.
+  re        -- Commands to access registers for the current thread and stack
+               frame.
+  repl      -- Evaluate an expression on the current thread.  Displays any
+               returned value with LLDB&apos;s default formatting.
+  run       -- Launch the executable in the debugger.
+  s         -- Source level single step, stepping into calls.  Defaults to
+               current thread unless specified.
+  shell     -- Run a shell command on the host.
+  si        -- Instruction level single step, stepping into calls.  Defaults to
+               current thread unless specified.
+  sif       -- Step through the current block, stopping if you step directly
+               into a function whose name matches the TargetFunctionName.
+  step      -- Source level single step, stepping into calls.  Defaults to
+               current thread unless specified.
+  stepi     -- Instruction level single step, stepping into calls.  Defaults to
+               current thread unless specified.
+  t         -- Change the currently selected thread.
+  tbreak    -- Set a one-shot breakpoint using one of several shorthand formats.
+  undisplay -- Stop displaying expression at every stop (specified by stop-hook
+               index.)
+  up        -- Select an older stack frame.  Defaults to moving one frame, a
+               numeric argument can specify an arbitrary number.
+  v         -- Show variables for the current stack frame. Defaults to all
+               arguments and local variables in scope. Names of argument,
+               local, file static and file global variables can be specified.
+               Children of aggregate variables can be specified such as
+               &apos;var-&amp;gt;child.x&apos;.  The -&amp;gt; and [] operators in &apos;frame variable&apos; do
+               not invoke operator overloads if they exist, but directly access
+               the specified element.  If you want to trigger operator
+               overloads use the expression command to print the variable
+               instead.
+               It is worth noting that except for overloaded operators, when
+               printing local variables &apos;expr local_var&apos; and &apos;frame var
+               local_var&apos; produce the same results.  However, &apos;frame variable&apos;
+               is more efficient, since it uses debug information and memory
+               reads directly, rather than parsing and evaluating an
+               expression, which may even involve JITing and running code in
+               the target program.
+  var       -- Show variables for the current stack frame. Defaults to all
+               arguments and local variables in scope. Names of argument,
+               local, file static and file global variables can be specified.
+               Children of aggregate variables can be specified such as
+               &apos;var-&amp;gt;child.x&apos;.  The -&amp;gt; and [] operators in &apos;frame variable&apos; do
+               not invoke operator overloads if they exist, but directly access
+               the specified element.  If you want to trigger operator
+               overloads use the expression command to print the variable
+               instead.
+               It is worth noting that except for overloaded operators, when
+               printing local variables &apos;expr local_var&apos; and &apos;frame var
+               local_var&apos; produce the same results.  However, &apos;frame variable&apos;
+               is more efficient, since it uses debug information and memory
+               reads directly, rather than parsing and evaluating an
+               expression, which may even involve JITing and running code in
+               the target program.
+  vo        -- Show variables for the current stack frame. Defaults to all
+               arguments and local variables in scope. Names of argument,
+               local, file static and file global variables can be specified.
+               Children of aggregate variables can be specified such as
+               &apos;var-&amp;gt;child.x&apos;.  The -&amp;gt; and [] operators in &apos;frame variable&apos; do
+               not invoke operator overloads if they exist, but directly access
+               the specified element.  If you want to trigger operator
+               overloads use the expression command to print the variable
+               instead.
+               It is worth noting that except for overloaded operators, when
+               printing local variables &apos;expr local_var&apos; and &apos;frame var
+               local_var&apos; produce the same results.  However, &apos;frame variable&apos;
+               is more efficient, since it uses debug information and memory
+               reads directly, rather than parsing and evaluating an
+               expression, which may even involve JITing and running code in
+               the target program.
+  x         -- Read from the memory of the current target process.
+Current user-defined commands:
+  alamborder    -- Put a border around views with an ambiguous layout
+  alamunborder  -- Removes the border around views with an ambiguous layout
+  bdisable      -- Disable a set of breakpoints for a regular expression
+  benable       -- Enable a set of breakpoints for a regular expression
+  binside       -- Set a breakpoint for a relative address within the
+                   framework/library that&apos;s currently running. This does the
+                   work of finding the offset for the framework/library and
+                   sliding your address accordingly.
+  bmessage      -- Set a breakpoint for a selector on a class, even if the
+                   class itself doesn&apos;t override that selector. It walks the
+                   hierarchy until it finds a class that does implement the
+                   selector and sets a conditional breakpoint there.
+  border        -- Draws a border around &amp;lt;viewOrLayer&amp;gt;. Color and width can be
+                   optionally provided. Additionally depth can be provided in
+                   order to recursively border subviews.
+  caflush       -- Force Core Animation to flush. This will &apos;repaint&apos; the UI
+                   but also may mess with ongoing animations.
+  copy          -- Copy data to your Mac.
+  dcomponents   -- Set debugging options for components.
+  dismiss       -- Dismiss a presented view controller.
+  fa11y         -- Find the views whose accessibility labels match labelRegex
+                   and puts the address of the first result on the clipboard.
+  findinstances -- Find instances of specified ObjC classes.
+  flicker       -- Quickly show and hide a view to quickly help visualize where
+                   it is.
+  fv            -- Find the views whose class names match classNameRegex and
+                   puts the address of first on the clipboard.
+  fvc           -- Find the view controllers whose class names match
+                   classNameRegex and puts the address of first on the
+                   clipboard.
+  heapfrom      -- Show all nested heap pointers contained within a given
+                   variable.
+  hide          -- Hide a view or layer.
+  mask          -- Add a transparent rectangle to the window to reveal a
+                   possibly obscured or hidden view or layer&apos;s bounds
+  mwarning      -- simulate a memory warning
+  pa11y         -- Print accessibility labels of all views in hierarchy of
+                   &amp;lt;aView&amp;gt;
+  pa11yi        -- Print accessibility identifiers of all views in hierarchy of
+                   &amp;lt;aView&amp;gt;
+  pactions      -- Print the actions and targets of a control.
+  paltrace      -- Print the Auto Layout trace for the given view. Defaults to
+                   the key window.
+  panim         -- Prints if the code is currently execution with a UIView
+                   animation block.
+  pbcopy        -- Print object and copy output to clipboard
+  pblock        -- Print the block`s implementation address and signature
+  pbundlepath   -- Print application&apos;s bundle directory path.
+  pcells        -- Print the visible cells of the highest table view in the
+                   hierarchy.
+  pclass        -- Print the inheritance starting from an instance of any class.
+  pcomponents   -- Print a recursive description of components found starting
+                   from &amp;lt;aView&amp;gt;.
+  pcurl         -- Print the NSURLRequest (HTTP) as curl command.
+  pdata         -- Print the contents of NSData object as string.
+  pdocspath     -- Print application&apos;s &apos;Documents&apos; directory path.
+  pinternals    -- Show the internals of an object by dereferencing it as a
+                   pointer.
+  pinvocation   -- Print the stack frame, receiver, and arguments of the
+                   current invocation. It will fail to print all arguments if
+                   any arguments are variadic (varargs).
+  pivar         -- Print the value of an object&apos;s named instance variable.
+  pjson         -- Print JSON representation of NSDictionary or NSArray object
+  pkp           -- Print out the value of the key path expression using
+                   -valueForKeyPath:
+  pmethods      -- Print the class and instance methods of a class.
+  poobjc        -- Print the expression result, with the expression run in an
+                   ObjC++ context. (Shortcut for &quot;expression -O -l ObjC++ -- &quot; )
+  pproperties   -- Print the properties of an instance or Class
+  present       -- Present a view controller.
+  presponder    -- Print the responder chain starting from a specific responder.
+  psjson        -- Print JSON representation of Swift Dictionary or Swift Array
+                   object
+  ptv           -- Print the highest table view in the hierarchy.
+  pvc           -- Print the recursion description of &amp;lt;aViewController&amp;gt;.
+  pviews        -- Print the recursion description of &amp;lt;aView&amp;gt;.
+  rcomponents   -- Synchronously reflow and update all components.
+  sequence      -- Run commands in sequence, stopping on any error.
+  setinput      -- Input text into text field or text view that is first
+                   responder.
+  settext       -- Set text on text on a view by accessibility id.
+  show          -- Show a view or layer.
+  slowanim      -- Slows down animations. Works on the iOS Simulator and a
+                   device.
+  taplog        -- Log tapped view to the console.
+  uikit         -- Imports the UIKit module to get access to the types while in
+                   lldb.
+  unborder      -- Removes border around &amp;lt;viewOrLayer&amp;gt;.
+  unmask        -- Remove mask from a view or layer
+  unslowanim    -- Turn off slow animations.
+  visualize     -- Open a UIImage, CGImageRef, UIView, CALayer, or
+                   CVPixelBuffer in Preview.app on your Mac.
+  vs            -- Interactively search for a view by walking the hierarchy.
+  wivar         -- Set a watchpoint for an object&apos;s instance variable.
+  xdebug        -- Print debug description the XCUIElement in human readable
+                   format.
+  xnoid         -- Print XCUIElement objects with label but without identifier.
+  xobject       -- Print XCUIElement details.
+  xtree         -- Print XCUIElement subtree.
+  zzz           -- Executes specified lldb command after delay.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Sat, 16 Apr 2022 15:12:52 +0800</pubDate>
+        <link>http://localhost:4000/2022/04/DebugServer/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/04/DebugServer/</guid>
+        
+        <category>逆向</category>
+        
+        
+        <category>逆向</category>
+        
+      </item>
+    
+      <item>
+        <title>Apple Configurator 2</title>
+        <description>&lt;h1 id=&quot;apple-configurator-2&quot;&gt;Apple Configurator 2&lt;/h1&gt;
+
+&lt;p&gt;准备工作： Apple ID账号密码， Apple设备。&lt;/p&gt;
+
+&lt;p&gt;1.1 在App Store搜索“Apple Configurator 2”下载安装（最低适配macOS 10.14）&lt;/p&gt;
+
+&lt;p&gt;1.2 连接设备到Mac, 菜单 -&amp;gt; 账户 -&amp;gt; 登录&lt;/p&gt;
+
+&lt;p&gt;1.3 添加 -&amp;gt; 应用， 这里会显示你的已购记录，选中应用后添加。这个过程和网速有关，需要等待应用在手机上安装完成。&lt;/p&gt;
+
+&lt;p&gt;1.4 command+shift+G 进入文件夹 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/Library/Group Containers/K36BKF7T3D.group.com.apple.configurator/Library/Caches/Assets/TemporaryItems/MobileApps/&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;备注&lt;/strong&gt;: 系统会在ipa安装完成之后清除 1.4 目录下的所有文件, 所以拷贝要迅速&lt;/p&gt;
+</description>
+        <pubDate>Sat, 16 Apr 2022 15:12:52 +0800</pubDate>
+        <link>http://localhost:4000/2022/04/Apple-Configurator/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/04/Apple-Configurator/</guid>
+        
+        <category>逆向</category>
+        
+        
+        <category>jekyll</category>
+        
+      </item>
+    
+      <item>
+        <title>ARM笔记</title>
+        <description>&lt;h1 id=&quot;arm笔记&quot;&gt;ARM笔记&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://blog.51cto.com/u_15278218/2930981&quot;&gt;ARM64汇编语言学习笔记&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://blog.51cto.com/u_15278218/2930963&quot;&gt;ARMv8-A64指令集总结和学习&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://cloud.tencent.com/developer/article/1768866&quot;&gt;iOS逆向之ARM64汇编基础&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/weixin_38669561/article/details/107279528&quot;&gt;ARMv8(aarch64)指令集特性&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.cnblogs.com/rongmouzhang/p/9707516.html&quot;&gt;ARM指令集, 机器码&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/lw2011cg/article/details/65663025?spm=1001.2101.3001.6650.1&amp;amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.no_search_link&amp;amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.no_search_link&quot;&gt;ARM指令格式&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://ayesawyer.github.io/2019/08/26/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4/&quot;&gt;ARM汇编基本指令&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/zqixiao_09/article/details/50776191&quot;&gt;ARM 软中断指令SWI&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://muzico.gitee.io/niao/15701134073849.html#toc_63&quot;&gt;ARM汇编（二）基本指令&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://juejin.cn/post/6844903920767074318&quot;&gt;编码&lt;/a&gt;
+&lt;a href=&quot;https://blog.cnbluebox.com/blog/2017/07/24/arm64-start/?hmsr=toutiao.io&amp;amp;utm_medium=toutiao.io&amp;amp;utm_source=toutiao.io&quot;&gt;入门&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;1-寄存器&quot;&gt;1. 寄存器&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://s6.51cto.com/images/blog/202106/21/5007b29c17125c2dc989e73f4b4b1d4c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=&quot; alt=&quot;寄存器&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;ARM处理器共有37个寄存器，被分为若干个组（BANK），这些寄存器包括：&lt;/p&gt;
+
+&lt;p&gt;(1). 31个通用寄存器，包括程序计数器（PC指针）&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;X0~X7：用于传递子程序参数和结果，使用时不需要保存，多余参数采用堆栈传递，64位返回结果采用X0表示，128位返回结果采用X1:X0表示;X0寄存器也用来存放函数的返回值。&lt;/li&gt;
+    &lt;li&gt;X8：用于保存子程序返回地址， 尽量不要使用 。&lt;/li&gt;
+    &lt;li&gt;X9~X15：临时寄存器，使用时不需要保存。&lt;/li&gt;
+    &lt;li&gt;X16~X17：子程序内部调用寄存器，使用时不需要保存，尽量不要使用。&lt;/li&gt;
+    &lt;li&gt;X18：平台寄存器，它的使用与平台相关，尽量不要使用。&lt;/li&gt;
+    &lt;li&gt;X19~X28：临时寄存器，使用时必须保存。&lt;/li&gt;
+    &lt;li&gt;X29：帧指针寄存器FP（栈底指针），用于连接栈帧，是指向栈底的寄存器,使用时需要保存。用于标识栈的底部，以免读取栈数据时“越界”。&lt;/li&gt;
+    &lt;li&gt;X30：全称Link Register，链接寄存器，即X30。x30无法像普通寄存器那样拆分出低32位来单独使用。LR寄存器用于存放函数跳转前的下一条指令的地址，方便函数执行完后返回到函数的下一条指令继续执行。或者说，LR存储着函数调用完成时的返回地址，用于做函数调用栈跟踪。程序在崩溃时能够将函数调用栈打印出来就是借助LR寄存器来实现的。&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;(2). 状态寄存器，用以标识CPU的工作状态及程序的运行状态，均为32位，只使用了其中的一部分。&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;SP(X31)：全称Stack Pointer，栈指针寄存器，指向栈的顶部。其32位版为WSP&lt;/li&gt;
+    &lt;li&gt;PC：全称program counter，程序计数器。用于存储将要执行的下一条指令的内存地址。通常在调试状态下看到的PC值都是当前断点处的地址。所以很多人认为PC用于存储CPU当前执行的指令的地址，记录CPU当前执行的是哪一条指令，实际上这种理解是错误的。&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;blockquote&gt;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;LR和PC的完美配合：通常我们调用BL无条件跳转指令时会先将函数跳转前的下一条指令的地址存放到（X30）LR寄存器中（即把函数调用完成时的返回地址存入X30）。 BL跳转到标记处执行函数代码， 代码执行完之后，会跳回LR存储的指令地址处继续执行。那是如何从LR中取出的指令的呢？BL指令中的ret会把LR（X30）寄存器的地址赋值给PC寄存器，这样CPU取PC寄存器中的指令地址就可以取到执行BL指令跳转前的下一条指令的地址。 程序得以跳回原来的地方继续有序执行。
+这里面程序可以跳回继续执行离不开BL、LR、PC的精诚合作
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;零寄存器：
+ wzr 32位的零寄存器。可对标 32位的普通寄存器w0~w28
+ xzr 64位的零寄存器。可对标 32位的普通寄存器w0~w28
+ 专门用来存储数字0。比如null、nil、false、NO
+ 因为汇编不支持将立即数存储到一个地址中，所以需要先将立即数存储到寄存器中，然后将寄存器中的数字存储到存储器。如下：&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mov xzr, 0 ; 先把立即数存储到64位的零寄存器xzr中
+str xzr [x1, #0x8] ; 再把xzr中的数据存储到x1+0x8的存储空间中
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;PSTATE 寄存区&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;2-指令后缀&quot;&gt;2 指令后缀&lt;/h2&gt;
+
+&lt;h3 id=&quot;21-位数&quot;&gt;2.1 位数&lt;/h3&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;       B(byte)：功能不变，操作长度变为8位(依赖CPU位数，以下相同)
+
+       H(Halfword)：功能不变，操作长度变为16位
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;例如： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ldr指令族：ldrb,ldrh,ldrsb ldrsh，从内存中加载指定长度的数据&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;212----ss标识影响cpsr里的nzcv标识位&quot;&gt;2.1.2    S(S标识)：影响CPSR里的NZCV标识位&lt;/h3&gt;
+
+&lt;p&gt;指令中使用”S“后缀时、指令执行后程序状态寄存器的条件标志位将被刷新。相当于有符号运算。例如：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;SUB    X1，X0，X3       ;X1=X0-X3  ，CPSR值不变
+
+SUBS X1，X0，X3        ;X1=X0-X3 , 如果计算结果为负数，CPSR寄存器的N被置位
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;213----后缀&quot;&gt;2.1.3    “！”后缀&lt;/h3&gt;
+&lt;p&gt;指令中地址表达式含有“！”后缀时，指令执行后，基址寄存器中的地址值将会发生变化。变化的结果是 (base+offset）。例如：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;LDR X3，[X0,#4]       //X3=X0+4
+
+LDR X3，[X0,#4]!      //X3=X0+4; X0+=4；
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;注意： “！”不能用于寄存器PC后面&lt;/p&gt;
+
+&lt;h3 id=&quot;214--条件后缀&quot;&gt;2.1.4  条件后缀&lt;/h3&gt;
+&lt;p&gt;ARM架构中，允许在指令后面添加条件后缀来完成指令条件执行的目的。指令条件执行就是说，指令根据CPSR中条件码的状态和指令的条件域有条件的执行。当指令的执行条件满足时，指令被执行，否则指令将被忽略。例如比较下面两条指令：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ADD X4，X2，#1                    ; 无条件执行 X4=X2+1
+
+ADDEQ  X4，X2，#1             ;添加有条件执行后缀EQ，当CPSR中的Z标志置位（之前某条CMP结果相等）时，该指令才执行。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;注意：如果条件后缀和“S”标识同时出现，则S在条件后缀的后面，例如：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ADDEQS  X4，X2，#1          ;即为有条件执行X4=X2+1，结果更新条件标志位
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;ARM中支持的条件后缀（条件码）共16种（系统保留1种，剩下15种可用），具体标志和功能如下表：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;指令码&lt;/th&gt;
+      &lt;th&gt;含义&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;EQ&lt;/td&gt;
+      &lt;td&gt;Z置位 ;结果相等才执行&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;NE&lt;/td&gt;
+      &lt;td&gt;Z清零，结果不相等才执行&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CS&lt;/td&gt;
+      &lt;td&gt;C置位，结果无符号&amp;gt;= 才执行&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CC&lt;/td&gt;
+      &lt;td&gt;C清零，结果无符号&amp;lt; 才执行&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;MI&lt;/td&gt;
+      &lt;td&gt;N置位，结果为负数才执行&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;PL&lt;/td&gt;
+      &lt;td&gt;N清零，结果为正数或0才执行&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;VS&lt;/td&gt;
+      &lt;td&gt;V置位，结果溢出才执行&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;VC&lt;/td&gt;
+      &lt;td&gt;V清零，结果无溢出才执行v&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;HI&lt;/td&gt;
+      &lt;td&gt;C置位Z清零，结果为无符号数大于才执行v&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;LS&lt;/td&gt;
+      &lt;td&gt;C清零Z置位，结果为无符号数小于或等于才执行&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;GE&lt;/td&gt;
+      &lt;td&gt;N等于V，结果为有符号数大于或等于才执行&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;LT&lt;/td&gt;
+      &lt;td&gt;N不等于V，结果为有符号数小于才执行&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;GT&lt;/td&gt;
+      &lt;td&gt;Z清零且N等于V ，结果为有符号大于才执行&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;LE&lt;/td&gt;
+      &lt;td&gt;Z置位或N不等于V ，结果为有符号数小于或等于&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;AL&lt;/td&gt;
+      &lt;td&gt;无条件执行。省略。&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;3-汇编指令&quot;&gt;3. 汇编指令&lt;/h2&gt;
+
+&lt;h3 id=&quot;31-算术运算指令&quot;&gt;3.1 算术运算指令&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ADD：加法运算指令。
+ 把一个寄存器中的数据或立即数与另一个寄存器中的数据或立即数进行相加。例如：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;ADD X0, X1, X2 ; 把寄存器X1、X2的值相加后赋值给寄存器X0。即X0 = X1+X2&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SUB：减法运算指令。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;把一个寄存器中的数据或立即数与另一个寄存器中的数据或立即数进行相减。例如：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;SUB X0, X1, X2 ; 把寄存器x1、x2的值相减后赋值给寄存器x0。即x0 = X1-X2&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;MUL：乘法运算指令。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;把一个寄存器中的数据或立即数与另一个寄存器中的数据或立即数进行相乘。例如：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;MUL X0, X0, X8 ; 把寄存器x0、x8的值相乘后赋值给寄存器x0。即x0 = X0*X8&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SDIV：有符号除法运算指令。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;SDIV X0, X0, X1 ; 即X0 = X0 / X1&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;UDIV：无符号除法运算指令。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;UDIV X0, X0, X1 ; 即X0 = X0 / X1&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CMP：比较（compare）指令。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;把两个寄存器的数据进行相减，不存储结果，只更新CPSR中的标志位。例如：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;CMP X28, X0 ; X28与X0相减，不存储结果只更新CPSR中的标志位。 (CPSR即为current program status register)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;32-跳转指令&quot;&gt;3.2 跳转指令&lt;/h3&gt;
+
+&lt;p&gt;跳转指令分为条件跳转和无条件跳转。条件跳转即若条件为真则跳转。无条件跳转是直接跳转到某个位置执行指令。无条件跳转可以类比函数调用。&lt;/p&gt;
+
+&lt;h4 id=&quot;321-无条件跳转label指令&quot;&gt;3.2.1 无条件跳转label指令&lt;/h4&gt;
+
+&lt;p&gt;(偏移范围为 : ±128MiB)&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;B：无条件跳转指令。例如：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;B label ; 跳转到label标签处开始执行&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;BL：无条件跳转指令。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;与B相比，执行BL前返回地址会被保存到X30（LR）寄存器。BL执行完后会把LR保存的地址赋值给PC寄存器。这样就可以回到BL跳转前的位置继续向下执行。。BL实例：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;BL label ;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;RET：子程序返回指令。
+  返回地址默认保存在X30（LR）寄存器&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;为什么B指令跳转的代码中有ret也回不到跳转前的下一条指令呢？
+ 原因是B指令在跳转前没有像BL指令那样把下一条指令的地址存储到LR（x30）寄存器中，所以B的ret就不能从LR寄存器中读出正确的地址赋值个PC寄存器。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;322-无条件跳转register指令&quot;&gt;3.2.2 无条件跳转register指令&lt;/h4&gt;
+&lt;p&gt;(偏移范围为 : 无限制)&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;br Xn
+跳转到寄存器&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;blr Xn
+寄存器跳转。跳转前把返回地址放入x30(LR)中长跳转range 2的64次方-1&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;ret {Xn}&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;323-条件跳转指令&quot;&gt;3.2.3 条件跳转指令&lt;/h4&gt;
+&lt;p&gt;(偏移范围为±1MiB)&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;b.cond label&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;b.cond的condition条件&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;操作码&lt;/th&gt;
+      &lt;th&gt;条件码助记符&lt;/th&gt;
+      &lt;th&gt;标志&lt;/th&gt;
+      &lt;th&gt;含义&lt;/th&gt;
+      &lt;th&gt; &lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;0000&lt;/td&gt;
+      &lt;td&gt;EQ&lt;/td&gt;
+      &lt;td&gt;Z=1&lt;/td&gt;
+      &lt;td&gt;相等&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;0001&lt;/td&gt;
+      &lt;td&gt;NE(Not Equal)&lt;/td&gt;
+      &lt;td&gt;Z=0&lt;/td&gt;
+      &lt;td&gt;不相等&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;0010&lt;/td&gt;
+      &lt;td&gt;CS/HS(Carry Set/High or Same)&lt;/td&gt;
+      &lt;td&gt;C=1&lt;/td&gt;
+      &lt;td&gt;无符号数大于或等于&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;0011&lt;/td&gt;
+      &lt;td&gt;CC/LO(Carry Clear/LOwer)&lt;/td&gt;
+      &lt;td&gt;C=0&lt;/td&gt;
+      &lt;td&gt;无符号数小于&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;0100&lt;/td&gt;
+      &lt;td&gt;MI(MInus)&lt;/td&gt;
+      &lt;td&gt;N=1&lt;/td&gt;
+      &lt;td&gt;负数&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;0101&lt;/td&gt;
+      &lt;td&gt;PL(PLus)&lt;/td&gt;
+      &lt;td&gt;N=0&lt;/td&gt;
+      &lt;td&gt;正数或零&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;0110&lt;/td&gt;
+      &lt;td&gt;VS(oVerflow set)&lt;/td&gt;
+      &lt;td&gt;V=1&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;溢出&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;0111&lt;/td&gt;
+      &lt;td&gt;VC(oVerflow clear)&lt;/td&gt;
+      &lt;td&gt;V=0&lt;/td&gt;
+      &lt;td&gt;没有溢出&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1000&lt;/td&gt;
+      &lt;td&gt;HI(HIgh)&lt;/td&gt;
+      &lt;td&gt;C=1,Z=0&lt;/td&gt;
+      &lt;td&gt;无符号数大于&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1001&lt;/td&gt;
+      &lt;td&gt;LS(Lower or Same)&lt;/td&gt;
+      &lt;td&gt;C=0,Z=1&lt;/td&gt;
+      &lt;td&gt;无符号数小于或等于&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1010&lt;/td&gt;
+      &lt;td&gt;GE(Greater or Equal)&lt;/td&gt;
+      &lt;td&gt;N=V&lt;/td&gt;
+      &lt;td&gt;有符号数大于或等于&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1011&lt;/td&gt;
+      &lt;td&gt;LT(Less Than)&lt;/td&gt;
+      &lt;td&gt;N!=V&lt;/td&gt;
+      &lt;td&gt;有符号数小于&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1100&lt;/td&gt;
+      &lt;td&gt;GT(Greater Than)&lt;/td&gt;
+      &lt;td&gt;Z=0,N=V&lt;/td&gt;
+      &lt;td&gt;有符号数大于&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1101&lt;/td&gt;
+      &lt;td&gt;LE(Less or Equal)&lt;/td&gt;
+      &lt;td&gt;Z=1,N!=V&lt;/td&gt;
+      &lt;td&gt;有符号数小于或等于&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1110&lt;/td&gt;
+      &lt;td&gt;AL&lt;/td&gt;
+      &lt;td&gt;任何&lt;/td&gt;
+      &lt;td&gt;无条件执行(默认)&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1111&lt;/td&gt;
+      &lt;td&gt;NV&lt;/td&gt;
+      &lt;td&gt;任何&lt;/td&gt;
+      &lt;td&gt;从不执行&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;例如:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    mrs     x2, esr_el1
+        mrs     x3, sp_el0
+        lsr     x2, x2, #ESR_EC_SHIFT
+        cmp     x2, #ESR_EC_AARCH64_SVC
+        b.eq    el0_svc    //-----------b.cond的应用
+        b       el0_sync_abort
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;cbz Xn|Wn, label
+比较Rt结果为零（Zero）则跳转&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;cbnz Xn&lt;/td&gt;
+          &lt;td&gt;Wn, label&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;FUNC __cpu_spin_trylock , :
+        mov     x1, x0
+        mov     w2, #SPINLOCK_LOCK
+.loop:  ldaxr   w0, [x1]
+        cbnz    w0, .cpu_spin_trylock_out  //------相当于是在检查参数的合法性，lock==NULL时直接返回
+        stxr    w0, w2, [x1]
+        cbnz    w0, .loop
+.cpu_spin_trylock_out:
+        ret
+END_FUNC __cpu_spin_trylock
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;tbz Xn&lt;/td&gt;
+          &lt;td&gt;Wn, #uimm6, label //如果Xn的第uimm的bit位位0，则跳转到label&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;tbnz Xn&lt;/td&gt;
+          &lt;td&gt;Wn, #uimm6, label&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;LOCAL_FUNC el1_sync_abort , :
+        mov     x0, sp
+        msr     spsel, #0
+        ldr     w1, [x0, #THREAD_CORE_LOCAL_FLAGS]
+        lsl     w1, w1, #THREAD_CLF_SAVED_SHIFT
+        orr     w1, w1, #THREAD_CLF_ABORT
+        tbnz    w1, #(THREAD_CLF_SAVED_SHIFT + THREAD_CLF_ABORT_SHIFT), \  //--------------tbnz的使用
+                        .Lsel_tmp_sp
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;BX 
+跳转同时切换到ARM模式，用于异常处理的跳转&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;BEQ&lt;/p&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;CPSR中Z置位则跳转&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; cmp     w0, #15     //将(w0-15)结果更新CPSR标志位
+ beq     label           //如果(w0==15) ,则跳转到lable
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;33-逻辑指令&quot;&gt;3.3 逻辑指令&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;AND：逻辑与运算指令。例如：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;AND X0, X1, X2 ; X1和X2寄存器的数据进行逻辑与运算结果保存到X0中。即：X0 = X1 &amp;amp; X2&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ORR：逻辑或运算指令。例如：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;ORR X0, X1, X2 ; X1和X2寄存器的数据进行逻辑或运算结果保存到X0中。即：X0 = X1&lt;/td&gt;
+        &lt;td&gt;X2&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;EOR：逻辑抑或运算指令（else or）。例如：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;EOR X0, X1, X2 ; X1和X2寄存器的数据进行逻辑抑或运算结果保存到X0中。即：X0 = X1 ^ X2&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;BIC 位清除操作
+    &lt;blockquote&gt;
+      &lt;p&gt;BIC X0，X0 #9    ;这里十进制数9对应的二进制数为101 ，故实现将寄存器X0的第0位和第3位清零。&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;34-数据传输指令&quot;&gt;3.4 数据传输指令&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;MOV：把寄存器中的数据存储到另外一个寄存器中。例如：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;MOV X19, X1 ; 把寄存器X1 中的数据存储到寄存器X19中。即 X1 = X19&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;MVN: 	取反赋值. 例如:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;MVN X1，X2 ;将寄存器X2取反后传送给寄存器X1&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;其他常用数据传输指令还有：MOVZ、MOVN、MOVK。&lt;/p&gt;
+
+&lt;h3 id=&quot;35-地址偏移指令&quot;&gt;3.5 地址偏移指令&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ADR：小范围的地址读取指令。ADR 指令将基于PC 相对偏移的地址值读取到寄存器中。例如：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;ADR Xn, label ; 即Xn = PC + label&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ADRP：以页为单位的大范围的地址读取指令，这里的P就是page的意思。
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;内存地址                   汇编指令
+0x102f571bc            adrp   x8， 265
+0x102f571c0            add    x8， x8，#0xa30
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;(1).  PC寄存器的低12位清零，得到 0x102f57000  （二进制的1位对应16进制的4位，计算机中的内存地址一般用16进制表示，0x开头表示16进制数，所以后16进制数的后三位清零）&lt;/p&gt;
+
+    &lt;p&gt;注：PC寄存器中存储的地址是当前要执行的指令地址，低12位清零，代表当前内存页的起始地址&lt;/p&gt;
+
+    &lt;p&gt;(2). 将十进制数265，转化为16进制数，结果为0x109，0x109左移12位，得到0x109000&lt;/p&gt;
+
+    &lt;p&gt;注： adrp   x8， 265中的265表示距离当前内存页265页，每一页为4K，即2的12次方。一个数乘以2的12次方，计算机中即是左移12位，即低12位为0。16进制中即低3位为0.&lt;/p&gt;
+
+    &lt;p&gt;(3). 将上述步骤一和步骤二中得到的16进制数相加，得到0x103060000，将0x103060000放入 x8 寄存器&lt;/p&gt;
+
+    &lt;p&gt;(4). 将x8寄存器中的地址值加上0xa30，得到的结果0x103060a30放入到x8寄存器。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;36-移位指令&quot;&gt;3.6 移位指令&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;LSL	逻辑左移
+    &lt;blockquote&gt;
+      &lt;p&gt;LSL Wd, Wn, Wm ; 32-bit
+LSL Xd, Xn, Xm ; 64-bit&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;LSR	逻辑右移
+    &lt;blockquote&gt;
+      &lt;p&gt;LSR Wd, Wn, Wm ; 32-bit
+LSR Xd, Xn, Xm ; 64-bit&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;ASR	算术右移
+    &lt;blockquote&gt;
+      &lt;p&gt;ASR Wd, Wn, Wm ; 32-bit
+ASR Xd, Xn, Xm ; 64-bit&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;ROR	循环右移
+    &lt;blockquote&gt;
+      &lt;p&gt;ROR Wd, Wn, Wm ; 32-bit
+ROR Xd, Xn, Xm ; 64-bit
+例如 :&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;LSL     w1, w1, #1          ;将寄存器W1逻辑左移1位后，赋值给W1
+
+MOV X0，X1，LSL#1   ;将寄存器X1左移1位后赋值给X0。
+
+MOVS X0，X1，LSR#1  ;将寄存器X1逻辑右移1位后的值赋值给X0，如果X0结果为0，则置寄存器CPSR的N位
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;37-加载存储指令&quot;&gt;3.7 加载/存储指令&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;加载（load）、存储（store）指令都是成对出现的&lt;/li&gt;
+  &lt;li&gt;无论是加载还是存储相关的指令，指令后面都只能写寄存器，不能把寄存器放到指令行的最后面。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;术语：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sign-extends ：符号扩展，前面补符合位和0
+zero-extends ：0扩展，即前面补0
+
+S : sign-extends
+B : byte
+H : half-word
+R ：register
+P : pair 双字操作
+
+LDPSW Xt1, Xt2, addr  //从addr处读取两个word到Xt1和Xt2， sign-extends
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;371-存取指令的寻址模式&quot;&gt;3.7.1 存取指令的寻址模式&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;[Rn, offset]! 前变址寻址
+    &lt;blockquote&gt;
+      &lt;p&gt;最终访问内存的地址 = Rn+offset, 操作后Rn的值 = Rn+offset&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;[Rn], offset 后变址寻址
+    &lt;blockquote&gt;
+      &lt;p&gt;最终访问内存的地址 = Rn, 操作后Rn的值 = Rn+offset&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;[Rn, offset] 偏移寻址
+    &lt;blockquote&gt;
+      &lt;p&gt;最终访问内存的地址 = Rn+offset,操作后Rn的值不变&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;372-load-store-pair&quot;&gt;3.7.2 Load-Store Pair&lt;/h4&gt;
+
+&lt;p&gt;LDR、LDUR、LDP都是和加载相关的指令。即把内存中的数据读取到寄存器中。LD即为load的缩写，R即为register的缩写，P即为pair的缩写，即同时操作两个寄存器。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;LDR &amp;amp; LDUR ：从内存中读取8/4字节数据到一个64/32位寄存器中，即从源寄存器中读取数据写入目的寄存器。LDUR中的“U”是unscaled的缩写，代表不需要按字节对齐。LDUR和LDR指令的区别：可以简单理解为地址偏移量为负数则使用LDUR，偏移量为正数则使用LDR。例如：
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;LDR X1, [sp, #0x28] ; 从SP+ 0x28处开始读取8字节数据到X1寄存器中。
+LDUR X30, [X29, #-0x10] ; 从X29 - 0x10出开始读取8字节数据到X30（LR）寄存器中。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;LDP：从内存中读取数据放到两个寄存器中。例如：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; LDP  w0, w1, [x0, #0x10] ; 读取x0+0x10内存的字数据，然后四个字节赋值给w0， 另外四个字节赋值给w1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;STR、STUR、STP都是和存储相关的指令。即把寄存器中的数据写入内存中。ST即为store的缩写，R即为register的缩写，P即为pair的缩写，即同时操作两个寄存器。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;STR &amp;amp; STUR：将寄存器中的数据写入内存中，即把源寄存器的内容写入目的寄存器。STR&amp;amp;STUR的区别和LDR&amp;amp;LDUR的区别类似。如下：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;STR X0, [sp, #0x28] ; 将X0寄存器中的数据写入SP + 0x28的位置。
+STUR X0, [sp, #-0x10] ; 将X0寄存器中的数据写入SP - 0x10的位置。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;STP：将两个寄存器的数据写入内存中。例如：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;STP X1, X2, [X0, #0x28]; 将X1和X2的数据 写入 X0+#0x28的位置
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;38-软中断指令&quot;&gt;3.8 软中断指令&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SVC&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;软件中断, swi(software interrupt)，在软件层模拟产生一个中断，这个中断会传送给CPU，常用于实现系统调用。类似于mips架构的syscall指令。&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;SVC{cond} #imm&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;4指令格式&quot;&gt;4.指令格式&lt;/h2&gt;
+
+&lt;h3 id=&quot;41--指令的基本格式及说明&quot;&gt;4.1  指令的基本格式及说明&lt;/h3&gt;
+&lt;p&gt;ARM是三地址指令格式，指令的基本格式为：&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;opcode&amp;gt;   &lt;/code&gt;{&lt;cond&gt;} {s}  &lt;Rd&gt;, &lt;Rn&gt;  {,&lt;operand2&gt;}`&lt;/operand2&gt;&lt;/Rn&gt;&lt;/Rd&gt;&lt;/cond&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;31-28&lt;/th&gt;
+      &lt;th&gt;27-25&lt;/th&gt;
+      &lt;th&gt;21-24&lt;/th&gt;
+      &lt;th&gt;20&lt;/th&gt;
+      &lt;th&gt;19-16&lt;/th&gt;
+      &lt;th&gt;15-12&lt;/th&gt;
+      &lt;th&gt;11-0（12位）&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;cond&lt;/td&gt;
+      &lt;td&gt;001&lt;/td&gt;
+      &lt;td&gt;opcode&lt;/td&gt;
+      &lt;td&gt;S&lt;/td&gt;
+      &lt;td&gt;Rn&lt;/td&gt;
+      &lt;td&gt;Rd&lt;/td&gt;
+      &lt;td&gt;shifter_operand&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;其中&amp;lt;&amp;gt;号内的项是必须的，{}号内的项是可选的。各项说明如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;opcode:  指令助记符；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;cond:  执行条件；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;s: 是否影响CPSR寄存器的值；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Rd:  目标寄存器；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Rn:  第一个操作数的寄存器；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;operand2:  第二个操作数；&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;条件码“cond”的使用可以实现高效的逻辑操作（节省跳转和条件语句），提高代码效率。所有的ARM指令都可以条件执行，&lt;/p&gt;
+
+&lt;p&gt;而THUMB指令只有B(跳转)指令具有条件执行功能。如果指令不标明条件代码，将默认为无条件（AL）执行。&lt;/p&gt;
+
+&lt;h3 id=&quot;42-指令条件域&quot;&gt;4.2 指令条件域&lt;/h3&gt;
+&lt;p&gt;| 操作码	| 条件码助记符 | 标志 | 含义 |
+| —— | —— | —— | —— |
+| 0000  | EQ | Z=1 | 相等 |
+| 0001	| NE(Not Equal)                	| Z=0	| 不相等|
+| 0010	| CS/HS(Carry Set/High or Same)	| C=1	| 无符号数大于或等于|
+| 0011	| CC/LO(Carry Clear/LOwer)     | C=0	| 无符号数小于
+| 0100	| MI(MInus)	                   | N=1   | 负数|
+| 0101	| PL(PLus)						| N=0	| 正数或零|
+| 0110	| VS(oVerflow set)				| V=1|	| 溢出|
+| 0111	| VC(oVerflow clear)			| V=0	| 没有溢出|
+| 1000	| HI(HIgh)						| C=1,Z=0 | 无符号数大于|
+| 1001	| LS(Lower or Same)				| C=0,Z=1	| 无符号数小于或等于|
+| 1010	| GE(Greater or Equal)			|	 N=V	| 有符号数大于或等于|
+| 1011	| LT(Less Than)					| N!=V|	 有符号数小于|
+| 1100	| GT(Greater Than)				| Z=0,N=V	| 有符号数大于|
+| 1101	| LE(Less or Equal)				| Z=1,N!=V	| 有符号数小于或等于|
+| 1110	| AL							| 任何	| 无条件执行(默认)|
+| 1111	| NV							| 任何	| 从不执行|&lt;/p&gt;
+
+&lt;h3 id=&quot;43-更多指令结构&quot;&gt;4.3 更多指令结构&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://developer.arm.com/documentation/ddi0602/2021-09/Base-Instructions?lang=en&quot;&gt;参见&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;5汇编内联语法&quot;&gt;5.汇编内联语法&lt;/h2&gt;
+
+&lt;h3 id=&quot;51c文件编译指令&quot;&gt;5.1c文件编译指令&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;`clang -S -arch arm64 -isysroot `xcrun --sdk iphoneos --show-sdk-path` xxx.c`
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;arm体系下的gcc内联汇编&quot;&gt;ARM体系下的GCC内联汇编&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.cnblogs.com/pengdonglin137/p/3328141.html&quot;&gt;参见&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;GCC规定了一个内联汇编的语法，不同硬件平台上的GCC内联汇编几乎都是这样的：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+asm(
+    汇编指令列表
+    :输出运算符列表
+    :输入运算符列表
+    :被更改的资源列表
+};
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;在GCC中插入汇编代码，需要以asm关键字开头，中间四个部分用”:”分隔，如果你嵌入的汇编没有输入输出，或者更改资源，后面三项是可以省略的。&lt;/p&gt;
+
+&lt;h3 id=&quot;gcc4中内联汇编修饰符&quot;&gt;GCC4中内联汇编修饰符&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;修饰符&lt;/th&gt;
+      &lt;th&gt;说明&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;无&lt;/td&gt;
+      &lt;td&gt;被修饰的操作符是只读的&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;=&lt;/td&gt;
+      &lt;td&gt;被修饰的操作符只写&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;+&lt;/td&gt;
+      &lt;td&gt;被修饰的操作符具有可读写的属性&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&amp;amp;&lt;/td&gt;
+      &lt;td&gt;被修饰的操作符只能作为输出&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;常见内联代码说明&quot;&gt;常见内联代码说明&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;代码1&lt;/em&gt;&lt;/strong&gt; 不带有输入,输出的代码解析&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#ifdef __arm64__
+        asm volatile(
+            &quot;mov x0,#26\n&quot;  ; 将系统服务号26放入x1
+            &quot;mov x1,#31\n&quot;	 ; 第二个参数
+            &quot;mov x2,#0\n&quot;	 ; 第三个参数
+            &quot;mov x3,#0\n&quot;	 ; 第四个参数
+            &quot;mov x16,#0\n&quot;	 ; 将系统服务号SYS_syscall(0)存入x16
+            &quot;svc #128\n&quot;	 ; 执行软中断(SVC 命令后边的立即数会被忽略, 任何值都可以, 业界默认是#80)
+        );
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;代码2&lt;/em&gt;&lt;/strong&gt; 带有输入,输出的代码解析&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; __asm__ volatile (
+                             &quot;mov x0, %2\n&quot;  ; 将第三个操作数(path)放入x0
+                             &quot;mov x1, %3\n&quot; ; 将第四个个操作数(fileinfo)放入x0
+                             &quot;mov w16, %w1\n&quot; ; 将第二个操作数(SYS_stat, 系统服务号)放入X16低四位
+                             &quot;svc #0x80\n&quot; ; 执行SYS_stat调用
+                             &quot;mov %w0, w0\n&quot; 将x0低四位的值(返回值)放入第一个操作数(ret)
+                             :&quot;=r&quot;(ret)  ; 输出操作数列表(只写)
+                             :&quot;r&quot;(SYS_stat), &quot;r&quot;(path), &quot;r&quot;(&amp;amp;fileInfo) ; 输入操作数列表
+                             );
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Sat, 16 Apr 2022 15:12:52 +0800</pubDate>
+        <link>http://localhost:4000/2022/04/ARM/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/04/ARM/</guid>
+        
+        <category>逆向</category>
         
         
         <category>jekyll</category>

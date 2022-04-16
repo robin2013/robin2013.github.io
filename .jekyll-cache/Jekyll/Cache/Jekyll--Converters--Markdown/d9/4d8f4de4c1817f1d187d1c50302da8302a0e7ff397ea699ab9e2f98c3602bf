@@ -1,0 +1,40 @@
+I"�
+<ul>
+  <li><a href="#debugserver-调试-app">DebugServer 调试 App</a>
+    <ul>
+      <li><a href="#准备环境">准备环境:</a></li>
+      <li><a href="#2-debugserver">2 DebugServer</a>
+        <ul>
+          <li><a href="#21-获取手机中的debugserver">2.1 获取手机中的debugServer</a></li>
+          <li><a href="#22-查看debugserver权限">2.2 查看debugserver权限</a></li>
+          <li><a href="#23-导出debugserver权限">2.3 导出debugserver权限</a></li>
+          <li><a href="#24-重新签名">2.4 重新签名</a></li>
+          <li><a href="#25-重新导入手机">2.5 重新导入手机:</a></li>
+          <li><a href="#21-安装软件">2.1 安装软件</a></li>
+          <li><a href="#22-启动">2.2 启动</a></li>
+        </ul>
+      </li>
+      <li><a href="#3-登录手机-debug">3. 登录手机, debug</a>
+        <ul>
+          <li><a href="#31-开启手机-ssh-代理">3.1 开启手机 ssh 代理</a></li>
+          <li><a href="#32-登录手机">3.2 登录手机</a></li>
+          <li><a href="#33-查找对应app进程信息以wechat-为例">3.3 查找对应App进程信息(以WeChat 为例)</a></li>
+          <li><a href="#34-附加app-进程">3.4 附加App 进程</a></li>
+        </ul>
+      </li>
+      <li><a href="#4-lldb">4. lldb</a>
+        <ul>
+          <li><a href="#41-开启lldb">4.1 开启lldb</a></li>
+        </ul>
+      </li>
+      <li><a href="#5-chisel">5. chisel</a>
+        <ul>
+          <li><a href="#51-调试">5.1 调试</a></li>
+          <li><a href="#52-chisel-用法">5.2 chisel 用法</a></li>
+          <li><a href="#53-chisel-其他用法">5.3 chisel 其他用法</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

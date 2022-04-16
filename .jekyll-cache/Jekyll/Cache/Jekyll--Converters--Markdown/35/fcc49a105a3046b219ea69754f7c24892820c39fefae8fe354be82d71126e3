@@ -1,5 +1,8 @@
+I"�<p>博客模板会一直持续更新，请持续关注我，谢谢~</p>
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-R87G3J6GFF"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-R87G3J6GFF"></script>
+
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -7,3 +10,5 @@
 
   gtag('config', 'G-R87G3J6GFF');
 </script>
+
+:ET

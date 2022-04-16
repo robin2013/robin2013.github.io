@@ -24,8 +24,8 @@
   <link rel="stylesheet" href="/css/main.css">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="canonical" href="http://cuiyinjiang.com/2022/04/Jekyll/">
-  <link rel="alternate" type="application/rss+xml" title="Robin Cui" href="http://cuiyinjiang.com/feed.xml">
+  <link rel="canonical" href="http://localhost:4000/2022/04/Jekyll/">
+  <link rel="alternate" type="application/rss+xml" title="Robin Cui" href="http://localhost:4000/feed.xml">
   
   <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
 
@@ -352,6 +352,11 @@ tags: 所属标签
 
        <ul class="pager">
         
+        <li class="previous">
+            <a href="/2022/04/DebugServer/" data-toggle="tooltip" data-placement="top" title="DebugServer">上一篇：  <span>DebugServer</span>
+            </a>
+        </li>
+        
         
         <li class="next">
             <a href="/2022/04/iOS_%E7%A0%B8%E5%A3%B3/" data-toggle="tooltip" data-placement="top" title="iOS 砸壳">下一篇：  <span>iOS 砸壳</span>
@@ -361,31 +366,15 @@ tags: 所属标签
     </ul>
 </section>
 
-<section class="post-comments">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R87G3J6GFF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  
-    <div id="disqus_thread"></div>
-    <script>
-    
-    var disqus_config = function () {
-        this.page.url = "http://cuiyinjiang.com/2022/04/Jekyll/";
-        this.page.identifier = "/2022/04/Jekyll/";
-    };
-    var disqus_shortname = 'iosrun';
-    
-    (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
-    </script>
-    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
-    
-  
-
-</section>
-
+  gtag('config', 'G-R87G3J6GFF');
+</script>
 
             <section class="footer">
     <footer>
@@ -438,11 +427,11 @@ tags: 所属标签
 
         <div class = "footer_div">  
            <p class="copyright text-muted">
-            Copyright &copy; Robin Cui 2022 Theme by <a href="http://leopardpan.cn/">leopardpan</a> |
+            <!-- Copyright &copy; Robin Cui 2022 Theme by <a href="">leopardpan</a> | -->
             <iframe
                 style="margin-left: 2px; margin-bottom:-5px;"
                 frameborder="0" scrolling="0" width="91px" height="20px"
-                src="https://ghbtns.com/github-btn.html?user=leopardpan&repo=leopardpan.github.io&type=star&count=true" >
+                src="" >
             </iframe>
             </p>
         	<div align="right">

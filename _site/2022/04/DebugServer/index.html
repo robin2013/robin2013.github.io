@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>DebugServer</title>
+  <meta name="description" content="DebugServer 调试 App">
+  <meta name="author" content="leopardpan">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="DebugServer">
+  <meta name="twitter:description" content="DebugServer 调试 App">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="DebugServer">
+  <meta property="og:description" content="DebugServer 调试 App">
+  
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2022/04/DebugServer/">
+  <link rel="alternate" type="application/rss+xml" title="Robin Cui" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+
+<!-- 站点统计 -->
+  <script 
+  async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>  
+
+<!-- 百度统计 -->
+  
+
+<!-- google 统计 -->
+  
+
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9005224472374751",
+    enable_page_level_ads: true
+  });
+</script>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">        
+      <div class="nav_container">
+         <nav class="nav-menu-item" style = "float:right">
+            <i class="nav-menu-item">
+              <a href="/#blog" title="" class="blog-button">  博客主页
+              </a>
+            </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/archive" title="archive" class="btn-mobile-menu__icon">
+                      所有文章
+                  </a>
+                </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/tags" title="tags" class="btn-mobile-menu__icon">
+                      标签
+                  </a>
+                </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/support" title="support" class="btn-mobile-menu__icon">
+                      技术支持
+                  </a>
+                </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/about" title="about" class="btn-mobile-menu__icon">
+                      关于我
+                  </a>
+                </i>
+            
+          </nav>
+      </div>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+        <!-- 头像效果-start -->
+        <div class="ih-item circle effect right_to_left">            
+            <a href="/#blog" title="前往 Robin Cui 的主页" class="blog-button">
+                <div class="img"><img src="/images/avatar.jpg" alt="img"></div>
+                <div class="info">
+                    <div class="info-back">
+                        <h2> 
+                            
+                                Robin
+                            
+                        </h2>
+                        <p>
+                           
+                                iOS / 机器学习
+                            
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!-- 头像效果-end -->
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Robin Cui" class="blog-button">Robin Cui</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">个人站</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">欢迎来到我的个人站~</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客主页</a></li>
+                
+                  <li class="navigation__item"><a href="/archive" title="archive">所有文章</a></li>
+                
+                  <li class="navigation__item"><a href="/tags" title="tags">标签</a></li>
+                
+                  <li class="navigation__item"><a href="/support" title="support">技术支持</a></li>
+                
+                  <li class="navigation__item"><a href="/about" title="about">关于我</a></li>
+                
+              </ul>
+            </nav>
+          </div>          
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-clear"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <head>
+  <link rel="stylesheet" href="/css/post.css">
+</head>
+
+<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title">DebugServer</h1>
+    <div class="post-meta">
+      <img src="/images/calendar.png" width="20px"/> 
+      <time datetime="2022-04-16 15:12:52 +0800" itemprop="datePublished" class="post-meta__date date">2022-04-16</time>  
+
+      <span id="busuanzi_container_page_pv"> | 阅读：<span id="busuanzi_value_page_pv"></span>次</span>
+    </p>
+    </div>
+  </header>
+
+  
+    <h2 class="post-title">目录</h2>
+    <ul>
+  <li><a href="#debugserver-调试-app">DebugServer 调试 App</a>
+    <ul>
+      <li><a href="#准备环境">准备环境:</a></li>
+      <li><a href="#2-debugserver">2 DebugServer</a>
+        <ul>
+          <li><a href="#21-获取手机中的debugserver">2.1 获取手机中的debugServer</a></li>
+          <li><a href="#22-查看debugserver权限">2.2 查看debugserver权限</a></li>
+          <li><a href="#23-导出debugserver权限">2.3 导出debugserver权限</a></li>
+          <li><a href="#24-重新签名">2.4 重新签名</a></li>
+          <li><a href="#25-重新导入手机">2.5 重新导入手机:</a></li>
+          <li><a href="#21-安装软件">2.1 安装软件</a></li>
+          <li><a href="#22-启动">2.2 启动</a></li>
+        </ul>
+      </li>
+      <li><a href="#3-登录手机-debug">3. 登录手机, debug</a>
+        <ul>
+          <li><a href="#31-开启手机-ssh-代理">3.1 开启手机 ssh 代理</a></li>
+          <li><a href="#32-登录手机">3.2 登录手机</a></li>
+          <li><a href="#33-查找对应app进程信息以wechat-为例">3.3 查找对应App进程信息(以WeChat 为例)</a></li>
+          <li><a href="#34-附加app-进程">3.4 附加App 进程</a></li>
+        </ul>
+      </li>
+      <li><a href="#4-lldb">4. lldb</a>
+        <ul>
+          <li><a href="#41-开启lldb">4.1 开启lldb</a></li>
+        </ul>
+      </li>
+      <li><a href="#5-chisel">5. chisel</a>
+        <ul>
+          <li><a href="#51-调试">5.1 调试</a></li>
+          <li><a href="#52-chisel-用法">5.2 chisel 用法</a></li>
+          <li><a href="#53-chisel-其他用法">5.3 chisel 其他用法</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+  
+
+  <section class="post">
+    <h1 id="debugserver-调试-app">DebugServer 调试 App</h1>
+
+<h2 id="准备环境">准备环境:</h2>
+<ul>
+  <li>越狱手机一部</li>
+  <li><a href="https://github.com/facebook/chisel">Chisel</a></li>
+  <li>lldb <code class="language-plaintext highlighter-rouge">brew install lldb</code></li>
+  <li>ldid <code class="language-plaintext highlighter-rouge">brew install ldid</code></li>
+</ul>
+
+<h2 id="2-debugserver">2 DebugServer</h2>
+
+<h3 id="21-获取手机中的debugserver">2.1 获取手机中的debugServer</h3>
+
+<p>执行 <code class="language-plaintext highlighter-rouge">scp root@10.155.27.59:/Developer/usr/bin/debugserver ./debugserver</code></p>
+
+<h3 id="22-查看debugserver权限">2.2 查看debugserver权限</h3>
+<p>执行  <code class="language-plaintext highlighter-rouge">ldid -e debugserver</code></p>
+
+<h3 id="23-导出debugserver权限">2.3 导出debugserver权限</h3>
+<p><code class="language-plaintext highlighter-rouge">ldid -e debugserver &gt; debuger.entitlements</code></p>
+
+<h3 id="24-重新签名">2.4 重新签名</h3>
+<p>打开<code class="language-plaintext highlighter-rouge">debuger.entitlement</code>,添加权限<code class="language-plaintext highlighter-rouge">task_for_pid-allow</code>, <code class="language-plaintext highlighter-rouge">get-task-allow</code> 到 ` debuger.entitlements`</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ldid -Sdebuger.entitlements debugserver
+</code></pre></div></div>
+
+<h3 id="25-重新导入手机">2.5 重新导入手机:</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scp -r debugserver root@10.15.32.45:/usr/bin/
+</code></pre></div></div>
+<p>## 2. iProxy
+ iproxy是usbmuxd附带的一个小工具,它的作用是将设备的某个端口映射到电脑的某个端口, 用来实现通过usb 登录手机(有时候wifi访问太慢),</p>
+<h3 id="21-安装软件">2.1 安装软件</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install usbmuxd
+</code></pre></div></div>
+
+<h3 id="22-启动">2.2 启动</h3>
+<p>一般搞越狱时会用来映射iPhone的22端口(ssh端口), 第一个 <code class="language-plaintext highlighter-rouge">12345</code> 代表本地mac端口, 第二个代表要发送到iPhone的端口(此处发送到mac 12345端口的数据, 会通过 USB 转发到 iPhone 12345 端口)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iproxy 12345 12345
+</code></pre></div></div>
+<p>用法很简单:</p>
+<ul>
+  <li>第一个参数是你要映射到的电脑端口</li>
+  <li>第二个是iPhone的端口</li>
+  <li>UDID一般不用填,会自动获取,不过多设备连接时,需要用于区分设备</li>
+</ul>
+
+<h2 id="3-登录手机-debug">3. 登录手机, debug</h2>
+
+<h3 id="31-开启手机-ssh-代理">3.1 开启手机 ssh 代理</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iproxy 2222 22
+</code></pre></div></div>
+<h3 id="32-登录手机">3.2 登录手机</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh root@localhost -p 2222
+</code></pre></div></div>
+
+<h3 id="33-查找对应app进程信息以wechat-为例">3.3 查找对应App进程信息(以WeChat 为例)</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps -e | grep -i WeChat
+</code></pre></div></div>
+
+<h3 id="34-附加app-进程">3.4 附加App 进程</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>debugserver localhost:12345 -a WeChat
+</code></pre></div></div>
+<p>此时, 手机端进如等待调试指令阶段</p>
+
+<h2 id="4-lldb">4. lldb</h2>
+<h3 id="41-开启lldb">4.1 开启lldb</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>在mac 端打开命令窗口, 输入 `lldb`, 进入调试模式 ### 4.2 连接debugserver ``` process connect connect://localhost:12345 ``` 之后进入调试状态, 命令窗口显示相应堆栈信息.
+</code></pre></div></div>
+
+<h2 id="5-chisel">5. chisel</h2>
+
+<h3 id="51-调试">5.1 调试</h3>
+<p>调试的方法有很多, 之前<code class="language-plaintext highlighter-rouge">lldb</code>的命令都可以进行调试, 但 <a href="https://github.com/facebook/chisel">Chisel</a> 包含更丰富的调试指令</p>
+
+<h3 id="52-chisel-用法">5.2 chisel 用法</h3>
+<p>chisel 设置属性方式:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(lldb) p 0x112cf0000
+(long) $4 = 140718754142192
+(lldb) e (void)[$44 setBackgroundColor:[UIColor greenColor]]
+(lldb) caflush
+(lldb) e (void)[$27 setAlpha:1.0]
+</code></pre></div></div>
+
+<h3 id="53-chisel-其他用法">5.3 chisel 其他用法</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(lldb) help
+Debugger commands:
+  apropos           -- List debugger commands related to a word or subject.
+  breakpoint        -- Commands for operating on breakpoints (see 'help b' for
+                       shorthand.)
+  command           -- Commands for managing custom LLDB commands.
+  disassemble       -- Disassemble specified instructions in the current
+                       target.  Defaults to the current function for the
+                       current thread and stack frame.
+  expression        -- Evaluate an expression on the current thread.  Displays
+                       any returned value with LLDB's default formatting.
+  frame             -- Commands for selecting and examing the current thread's
+                       stack frames.
+  gdb-remote        -- Connect to a process via remote GDB server.  If no host
+                       is specifed, localhost is assumed.
+  gui               -- Switch into the curses based GUI mode.
+  help              -- Show a list of all debugger commands, or give details
+                       about a specific command.
+  kdp-remote        -- Connect to a process via remote KDP server.  If no UDP
+                       port is specified, port 41139 is assumed.
+  language          -- Commands specific to a source language.
+  log               -- Commands controlling LLDB internal logging.
+  memory            -- Commands for operating on memory in the current target
+                       process.
+  platform          -- Commands to manage and create platforms.
+  plugin            -- Commands for managing LLDB plugins.
+  process           -- Commands for interacting with processes on the current
+                       platform.
+  quit              -- Quit the LLDB debugger.
+  register          -- Commands to access registers for the current thread and
+                       stack frame.
+  reproducer        -- Commands for manipulating reproducers. Reproducers make
+                       it possible to capture full debug sessions with all its
+                       dependencies. The resulting reproducer is used to replay
+                       the debug session while debugging the debugger.
+                       Because reproducers need the whole the debug session
+                       from beginning to end, you need to launch the debugger
+                       in capture or replay mode, commonly though the command
+                       line driver.
+                       Reproducers are unrelated record-replay debugging, as
+                       you cannot interact with the debugger during replay.
+  script            -- Invoke the script interpreter with provided code and
+                       display any results.  Start the interactive interpreter
+                       if no code is supplied.
+  session           -- Commands controlling LLDB session.
+  settings          -- Commands for managing LLDB settings.
+  source            -- Commands for examining source code described by debug
+                       information for the current target process.
+  statistics        -- Print statistics about a debugging session
+  target            -- Commands for operating on debugger targets.
+  thread            -- Commands for operating on one or more threads in the
+                       current process.
+  trace             -- Commands for loading and using processor trace
+                       information.
+  type              -- Commands for operating on the type system.
+  version           -- Show the LLDB debugger version.
+  watchpoint        -- Commands for operating on watchpoints.
+Current command abbreviations (type 'help command alias' for more info):
+  add-dsym  -- Add a debug symbol file to one of the target's current modules
+               by specifying a path to a debug symbols file or by using the
+               options to specify a module.
+  attach    -- Attach to process by ID or name.
+  b         -- Set a breakpoint using one of several shorthand formats.
+  bt        -- Show the current thread's call stack.  Any numeric argument
+               displays at most that many frames.  The argument 'all' displays
+               all threads.  Use 'settings set frame-format' to customize the
+               printing of individual frames and 'settings set thread-format'
+               to customize the thread header.
+  c         -- Continue execution of all threads in the current process.
+  call      -- Evaluate an expression on the current thread.  Displays any
+               returned value with LLDB's default formatting.
+  continue  -- Continue execution of all threads in the current process.
+  detach    -- Detach from the current target process.
+  di        -- Disassemble specified instructions in the current target. 
+               Defaults to the current function for the current thread and
+               stack frame.
+  dis       -- Disassemble specified instructions in the current target. 
+               Defaults to the current function for the current thread and
+               stack frame.
+  display   -- Evaluate an expression at every stop (see 'help target
+               stop-hook'.)
+  down      -- Select a newer stack frame.  Defaults to moving one frame, a
+               numeric argument can specify an arbitrary number.
+  env       -- Shorthand for viewing and setting environment variables.
+  exit      -- Quit the LLDB debugger.
+  f         -- Select the current stack frame by index from within the current
+               thread (see 'thread backtrace'.)
+  file      -- Create a target using the argument as the main executable.
+  finish    -- Finish executing the current stack frame and stop after
+               returning.  Defaults to current thread unless specified.
+  history   -- Dump the history of commands in this session.
+               Commands in the history list can be run again using "!&lt;INDEX&gt;". 
+               "!-&lt;OFFSET&gt;" will re-run the command that is &lt;OFFSET&gt; commands
+               from the end of the list (counting the current command).
+  image     -- Commands for accessing information for one or more target
+               modules.
+  j         -- Set the program counter to a new address.
+  jump      -- Set the program counter to a new address.
+  kill      -- Terminate the current target process.
+  l         -- List relevant source code using one of several shorthand formats.
+  list      -- List relevant source code using one of several shorthand formats.
+  n         -- Source level single step, stepping over calls.  Defaults to
+               current thread unless specified.
+  next      -- Source level single step, stepping over calls.  Defaults to
+               current thread unless specified.
+  nexti     -- Instruction level single step, stepping over calls.  Defaults to
+               current thread unless specified.
+  ni        -- Instruction level single step, stepping over calls.  Defaults to
+               current thread unless specified.
+  p         -- Evaluate an expression on the current thread.  Displays any
+               returned value with LLDB's default formatting.
+  parray    -- parray &lt;COUNT&gt; &lt;EXPRESSION&gt; -- lldb will evaluate EXPRESSION to
+               get a typed-pointer-to-an-array in memory, and will display
+               COUNT elements of that type from the array.
+  po        -- Evaluate an expression on the current thread.  Displays any
+               returned value with formatting controlled by the type's author.
+  poarray   -- poarray &lt;COUNT&gt; &lt;EXPRESSION&gt; -- lldb will evaluate EXPRESSION to
+               get the address of an array of COUNT objects in memory, and will
+               call po on them.
+  print     -- Evaluate an expression on the current thread.  Displays any
+               returned value with LLDB's default formatting.
+  q         -- Quit the LLDB debugger.
+  r         -- Launch the executable in the debugger.
+  rbreak    -- Sets a breakpoint or set of breakpoints in the executable.
+  re        -- Commands to access registers for the current thread and stack
+               frame.
+  repl      -- Evaluate an expression on the current thread.  Displays any
+               returned value with LLDB's default formatting.
+  run       -- Launch the executable in the debugger.
+  s         -- Source level single step, stepping into calls.  Defaults to
+               current thread unless specified.
+  shell     -- Run a shell command on the host.
+  si        -- Instruction level single step, stepping into calls.  Defaults to
+               current thread unless specified.
+  sif       -- Step through the current block, stopping if you step directly
+               into a function whose name matches the TargetFunctionName.
+  step      -- Source level single step, stepping into calls.  Defaults to
+               current thread unless specified.
+  stepi     -- Instruction level single step, stepping into calls.  Defaults to
+               current thread unless specified.
+  t         -- Change the currently selected thread.
+  tbreak    -- Set a one-shot breakpoint using one of several shorthand formats.
+  undisplay -- Stop displaying expression at every stop (specified by stop-hook
+               index.)
+  up        -- Select an older stack frame.  Defaults to moving one frame, a
+               numeric argument can specify an arbitrary number.
+  v         -- Show variables for the current stack frame. Defaults to all
+               arguments and local variables in scope. Names of argument,
+               local, file static and file global variables can be specified.
+               Children of aggregate variables can be specified such as
+               'var-&gt;child.x'.  The -&gt; and [] operators in 'frame variable' do
+               not invoke operator overloads if they exist, but directly access
+               the specified element.  If you want to trigger operator
+               overloads use the expression command to print the variable
+               instead.
+               It is worth noting that except for overloaded operators, when
+               printing local variables 'expr local_var' and 'frame var
+               local_var' produce the same results.  However, 'frame variable'
+               is more efficient, since it uses debug information and memory
+               reads directly, rather than parsing and evaluating an
+               expression, which may even involve JITing and running code in
+               the target program.
+  var       -- Show variables for the current stack frame. Defaults to all
+               arguments and local variables in scope. Names of argument,
+               local, file static and file global variables can be specified.
+               Children of aggregate variables can be specified such as
+               'var-&gt;child.x'.  The -&gt; and [] operators in 'frame variable' do
+               not invoke operator overloads if they exist, but directly access
+               the specified element.  If you want to trigger operator
+               overloads use the expression command to print the variable
+               instead.
+               It is worth noting that except for overloaded operators, when
+               printing local variables 'expr local_var' and 'frame var
+               local_var' produce the same results.  However, 'frame variable'
+               is more efficient, since it uses debug information and memory
+               reads directly, rather than parsing and evaluating an
+               expression, which may even involve JITing and running code in
+               the target program.
+  vo        -- Show variables for the current stack frame. Defaults to all
+               arguments and local variables in scope. Names of argument,
+               local, file static and file global variables can be specified.
+               Children of aggregate variables can be specified such as
+               'var-&gt;child.x'.  The -&gt; and [] operators in 'frame variable' do
+               not invoke operator overloads if they exist, but directly access
+               the specified element.  If you want to trigger operator
+               overloads use the expression command to print the variable
+               instead.
+               It is worth noting that except for overloaded operators, when
+               printing local variables 'expr local_var' and 'frame var
+               local_var' produce the same results.  However, 'frame variable'
+               is more efficient, since it uses debug information and memory
+               reads directly, rather than parsing and evaluating an
+               expression, which may even involve JITing and running code in
+               the target program.
+  x         -- Read from the memory of the current target process.
+Current user-defined commands:
+  alamborder    -- Put a border around views with an ambiguous layout
+  alamunborder  -- Removes the border around views with an ambiguous layout
+  bdisable      -- Disable a set of breakpoints for a regular expression
+  benable       -- Enable a set of breakpoints for a regular expression
+  binside       -- Set a breakpoint for a relative address within the
+                   framework/library that's currently running. This does the
+                   work of finding the offset for the framework/library and
+                   sliding your address accordingly.
+  bmessage      -- Set a breakpoint for a selector on a class, even if the
+                   class itself doesn't override that selector. It walks the
+                   hierarchy until it finds a class that does implement the
+                   selector and sets a conditional breakpoint there.
+  border        -- Draws a border around &lt;viewOrLayer&gt;. Color and width can be
+                   optionally provided. Additionally depth can be provided in
+                   order to recursively border subviews.
+  caflush       -- Force Core Animation to flush. This will 'repaint' the UI
+                   but also may mess with ongoing animations.
+  copy          -- Copy data to your Mac.
+  dcomponents   -- Set debugging options for components.
+  dismiss       -- Dismiss a presented view controller.
+  fa11y         -- Find the views whose accessibility labels match labelRegex
+                   and puts the address of the first result on the clipboard.
+  findinstances -- Find instances of specified ObjC classes.
+  flicker       -- Quickly show and hide a view to quickly help visualize where
+                   it is.
+  fv            -- Find the views whose class names match classNameRegex and
+                   puts the address of first on the clipboard.
+  fvc           -- Find the view controllers whose class names match
+                   classNameRegex and puts the address of first on the
+                   clipboard.
+  heapfrom      -- Show all nested heap pointers contained within a given
+                   variable.
+  hide          -- Hide a view or layer.
+  mask          -- Add a transparent rectangle to the window to reveal a
+                   possibly obscured or hidden view or layer's bounds
+  mwarning      -- simulate a memory warning
+  pa11y         -- Print accessibility labels of all views in hierarchy of
+                   &lt;aView&gt;
+  pa11yi        -- Print accessibility identifiers of all views in hierarchy of
+                   &lt;aView&gt;
+  pactions      -- Print the actions and targets of a control.
+  paltrace      -- Print the Auto Layout trace for the given view. Defaults to
+                   the key window.
+  panim         -- Prints if the code is currently execution with a UIView
+                   animation block.
+  pbcopy        -- Print object and copy output to clipboard
+  pblock        -- Print the block`s implementation address and signature
+  pbundlepath   -- Print application's bundle directory path.
+  pcells        -- Print the visible cells of the highest table view in the
+                   hierarchy.
+  pclass        -- Print the inheritance starting from an instance of any class.
+  pcomponents   -- Print a recursive description of components found starting
+                   from &lt;aView&gt;.
+  pcurl         -- Print the NSURLRequest (HTTP) as curl command.
+  pdata         -- Print the contents of NSData object as string.
+  pdocspath     -- Print application's 'Documents' directory path.
+  pinternals    -- Show the internals of an object by dereferencing it as a
+                   pointer.
+  pinvocation   -- Print the stack frame, receiver, and arguments of the
+                   current invocation. It will fail to print all arguments if
+                   any arguments are variadic (varargs).
+  pivar         -- Print the value of an object's named instance variable.
+  pjson         -- Print JSON representation of NSDictionary or NSArray object
+  pkp           -- Print out the value of the key path expression using
+                   -valueForKeyPath:
+  pmethods      -- Print the class and instance methods of a class.
+  poobjc        -- Print the expression result, with the expression run in an
+                   ObjC++ context. (Shortcut for "expression -O -l ObjC++ -- " )
+  pproperties   -- Print the properties of an instance or Class
+  present       -- Present a view controller.
+  presponder    -- Print the responder chain starting from a specific responder.
+  psjson        -- Print JSON representation of Swift Dictionary or Swift Array
+                   object
+  ptv           -- Print the highest table view in the hierarchy.
+  pvc           -- Print the recursion description of &lt;aViewController&gt;.
+  pviews        -- Print the recursion description of &lt;aView&gt;.
+  rcomponents   -- Synchronously reflow and update all components.
+  sequence      -- Run commands in sequence, stopping on any error.
+  setinput      -- Input text into text field or text view that is first
+                   responder.
+  settext       -- Set text on text on a view by accessibility id.
+  show          -- Show a view or layer.
+  slowanim      -- Slows down animations. Works on the iOS Simulator and a
+                   device.
+  taplog        -- Log tapped view to the console.
+  uikit         -- Imports the UIKit module to get access to the types while in
+                   lldb.
+  unborder      -- Removes border around &lt;viewOrLayer&gt;.
+  unmask        -- Remove mask from a view or layer
+  unslowanim    -- Turn off slow animations.
+  visualize     -- Open a UIImage, CGImageRef, UIView, CALayer, or
+                   CVPixelBuffer in Preview.app on your Mac.
+  vs            -- Interactively search for a view by walking the hierarchy.
+  wivar         -- Set a watchpoint for an object's instance variable.
+  xdebug        -- Print debug description the XCUIElement in human readable
+                   format.
+  xnoid         -- Print XCUIElement objects with label but without identifier.
+  xobject       -- Print XCUIElement details.
+  xtree         -- Print XCUIElement subtree.
+  zzz           -- Executes specified lldb command after delay.
+</code></pre></div></div>
+
+  </section>
+
+</article>
+
+<section>
+
+            <div class="content-play">
+              <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang" title="打赏，支持一下">打赏一个呗</a></p>
+              <div class="hide_box-play"></div>
+              <div class="shang_box-play">
+                <a class="shang_close-play" href="javascript:void(0)" onclick="dashangToggle()" title="关闭"><img src="/images/payimg/close.jpg" alt="取消" /></a>
+                <div class="shang_tit-play">
+                  <p>感谢您的支持，我会继续努力的!</p>
+                </div>
+                <div class="shang_payimg">
+                    <img src="/images/payimg/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+                </div>
+              <div class="shang_payimg">    
+                    <img src="/images/payimg/weipayimg.jpg" alt="扫码支持" title="扫一扫" />
+                </div>
+                <div class="pay_explain">扫码打赏，你说多少就多少</div>
+                <div class="shang_payselect">
+                  <div class="pay_item checked" data-id="alipay">
+                    <span class="pay_logo"><img src="/images/payimg/alipay.jpg" alt="支付宝" /></span>
+                  </div>
+                  <div class="pay_item" data-id="weipay">
+                    <span class="pay_logo"><img src="/images/payimg/wechat.jpg" alt="微信" /></span>
+                  </div>
+                </div>
+                <div class="shang_info-play">
+                  <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+                </div>
+              </div>
+            </div>
+            <script type="text/javascript">
+            function dashangToggle(){
+              $(".hide_box-play").fadeToggle();
+              $(".shang_box-play").fadeToggle();
+            }
+            </script>
+
+            <div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';"></div>
+
+            <style type="text/css">
+              .content-play{width:80%;margin-top: 20px;margin-bottom: 10px;height:40px;}
+              .hide_box-play{z-index:999;filter:alpha(opacity=50);background:#666;opacity: 0.5;-moz-opacity: 0.5;left:0;top:0;height:99%;width:100%;position:fixed;display:none;}
+              .shang_box-play{width:540px;height:540px;padding:10px;background-color:#fff;border-radius:10px;position:fixed;z-index:1000;left:50%;top:50%;margin-left:-280px;margin-top:-280px;border:1px dotted #dedede;display:none;}
+              .shang_box-play img{border:none;border-width:0;}
+              .dashang{display:block;width:100px;margin:5px auto;height:25px;line-height:25px;padding:10px;background-color:#E74851;color:#fff;text-align:center;text-decoration:none;border-radius:10px;font-weight:bold;font-size:16px;transition: all 0.3s;}
+              .dashang:hover{opacity:0.8;padding:15px;font-size:18px;}
+              .shang_close-play{float:right;display:inline-block;
+                margin-right: 10px;margin-top: 20px;
+              }
+              .shang_logo{display:block;text-align:center;margin:20px auto;}
+              .shang_tit-play{width: 100%;height: 75px;text-align: center;line-height: 66px;color: #a3a3a3;font-size: 16px;background: url('/images/payimg/cy-reward-title-bg.jpg');font-family: 'Microsoft YaHei';margin-top: 7px;margin-right:2px;}
+              .shang_tit-play p{color:#a3a3a3;text-align:center;font-size:16px;}
+              .shang_payimg{width:140px;padding:10px;padding-left: 80px; /*border:6px solid #EA5F00;**/margin:0 auto;border-radius:3px;height:140px;display:inline-block;}
+              .shang_payimg img{display:inline-block;margin-right:10px;float:left;text-align:center;width:140px;height:140px; }
+              .pay_explain{text-align:center;margin:10px auto;font-size:12px;color:#545454;}
+              .shang_payselect{text-align:center;margin:0 auto;margin-top:40px;cursor:pointer;height:60px;width:500px;margin-left:110px;}
+              .shang_payselect .pay_item{display:inline-block;margin-right:140px;float:left;}
+              .shang_info-play{clear:both;}
+              .shang_info-play p,.shang_info-play a{color:#C3C3C3;text-align:center;font-size:12px;text-decoration:none;line-height:2em;}
+            </style>
+
+       <ul class="pager">
+        
+        <li class="previous">
+            <a href="/2022/04/Apple-Configurator/" data-toggle="tooltip" data-placement="top" title="Apple Configurator 2">上一篇：  <span>Apple Configurator 2</span>
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/2022/04/Jekyll/" data-toggle="tooltip" data-placement="top" title="Mac M1 安装 jekyll">下一篇：  <span>Mac M1 安装 jekyll</span>
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R87G3J6GFF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-R87G3J6GFF');
+</script>
+
+            <section class="footer">
+    <footer>
+        <div class = "footer_div">  
+        <nav class="cover-navigation navigation--social">
+          <ul class="navigation">
+
+          
+          <!-- Github -->
+          <li class="navigation__item_social">
+            <a href="https://github.com/robin2013" title="@robin2013 的 Github" target="_blank">
+              <div class="footer-social-icon" style="background:url(/images/github.png);"></div>
+            </a>
+          </li>
+          
+
+          
+          <!-- Email -->
+          <li class="navigation__item_social">
+            <a href="mailto:robincui2022@126.com" title="Contact me">
+              <div class="footer-social-icon" style="background:url(/images/email.png);"></div>
+            </a>
+          </li>
+          
+          
+          <!-- RSS -->
+          <li class="navigation__item_social">
+            <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+              <div class="footer-social-icon" style="background:url(/images/rss.png);"></div>
+              <span class="label">RSS</span>
+            </a>
+          </li>
+
+          </ul>
+        </nav>
+
+        </div>
+
+        <div class = "footer_div">  
+           <p class="copyright text-muted">
+            <!-- Copyright &copy; Robin Cui 2022 Theme by <a href="">leopardpan</a> | -->
+            <iframe
+                style="margin-left: 2px; margin-bottom:-5px;"
+                frameborder="0" scrolling="0" width="91px" height="20px"
+                src="" >
+            </iframe>
+            </p>
+        	<div align="right">
+    			<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+          <!-- 访问统计 -->
+          <span id="busuanzi_container_site_pv">
+            本站总访问量
+            <span id="busuanzi_value_site_pv"></span>次
+          </span>
+
+        </div>
+        <div>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+  </body>
+
+</html>
