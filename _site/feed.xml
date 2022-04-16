@@ -1,13 +1,231 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>潘柏信</title>
+    <title>Robin Cui</title>
     <description>欢迎来到我的个人站~</description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 16 Apr 2022 16:16:41 +0800</pubDate>
-    <lastBuildDate>Sat, 16 Apr 2022 16:16:41 +0800</lastBuildDate>
+    <link>http://cuiyinjiang.com/</link>
+    <atom:link href="http://cuiyinjiang.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 16 Apr 2022 17:23:25 +0800</pubDate>
+    <lastBuildDate>Sat, 16 Apr 2022 17:23:25 +0800</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
+    
+      <item>
+        <title>iOS 砸壳</title>
+        <description>&lt;h1 id=&quot;ios-砸壳&quot;&gt;iOS 砸壳&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-环境&quot;&gt;1. 环境&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;越狱手机, 且安装cycript和ssh&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/stefanesser/dumpdecrypted&quot;&gt;dumpdecrypted&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://stevenygard.com/projects/class-dump/&quot;&gt;class-dump&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;2-class-dump&quot;&gt;2. class-dump&lt;/h2&gt;
+
+&lt;p&gt;1、下载地址：&lt;a href=&quot;http://stevenygard.com/projects/class-dump/&quot;&gt;class-dump&lt;/a&gt;
+2、打开终端输入&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;open /usr/local/bin&lt;/code&gt;
+3、把dmg文件中的class-dump文件复制到/usr/local/bin
+4、更改权限 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo chmod 777 /usr/local/bin/class-dump&lt;/code&gt;
+5、其他:
+ 如果遇到以下问题, &lt;a href=&quot;https://iosre.com/t/solved-classdump-error-cannot-find-offset-for-address-xxxxx-in-stringataddress/10626&quot;&gt;参见&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; Error: Cannot find offset for address 0x50000000010a737b in stringAtAddress:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;可能的原因是: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Usually this is caused by swift code embedded with ObjC code.&lt;/code&gt;
+ 此时需要更换 [class-dump] (https://github.com/AloneMonkey/MonkeyDev/blob/master/bin/class-dump), 参照步骤 2 配置, 重新设置&lt;/p&gt;
+
+&lt;h2 id=&quot;3-dumpdecrypted-配置&quot;&gt;3. dumpdecrypted 配置&lt;/h2&gt;
+&lt;p&gt;(1). 下载 dumpdecrypted&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/stefanesser/dumpdecrypted.git
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;(2) &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cd dumpdecrypted&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;(3) 执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make&lt;/code&gt; 
+(4) 签名(如果不签名, 会导致砸壳导致失败)&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//  查找可用的证书，然后用找到的证书签名
+security find-identity -v -p codesigning
+
+ // 签名
+codesign --force --verify --verbose --sign &quot;iPhone Developer: XXX (xxxxxx)&quot; dumpdecrypted.dylib
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;(5) 签过名的dumpdecrypted.dylib上传iphone手机的/usr/lib/目录：
+&lt;strong&gt;备注&lt;/strong&gt;: 也有教程说是保存到App的document目录下&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;scp -r dumpdecrypted.dylib root@手机IP:/usr/lib/
+// 使用iproxy
+scp -P 2222 ./dumpdecrypted.dylib root@localhost:/usr/lib/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;## 4. iProxy
+ iproxy是usbmuxd附带的一个小工具,它的作用是将设备的某个端口映射到电脑的某个端口, 用来实现通过usb 登录手机(有时候wifi访问太慢), 
+(1) 安装软件&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew install usbmuxd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;(2) 启动
+一般搞越狱时会用来映射iPhone的22端口(ssh端口)&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iproxy 2222 22
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;用法很简单:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;第一个参数是你要映射到的电脑端口&lt;/li&gt;
+  &lt;li&gt;第二个是iPhone的端口&lt;/li&gt;
+  &lt;li&gt;UDID一般不用填,会自动获取,不过多设备连接时,需要用于区分设备&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;(3) 登录手机&lt;/p&gt;
+
+&lt;p&gt;没有使用iProxy时:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh root@10.3.1.51
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;使用iProxy后, 会将localhost本机的2222端口数据, 通过usb 转发到手机22端口(ssh端口)&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh root@localhost -p 2222
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;## 5. 砸壳
+ (1) 登录手机后 执行&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ps -e | grep -i WeChat&lt;/code&gt;(以微信为例), 便可以得到WeChat的进程信息&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; 6690 ??         0:00.00 /var/containers/Bundle/Application/DCF929F2-FB53-4D92-BFB7-A4767E775033/WeChat.app/WeChat
+ 7031 ttys000    0:00.00 grep -i WeChat
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;(2) cycript注入进程查看应用对应的Documents目录, 
+cycript -p 进程id值pid 注入进程 （待机等状态有时会导致注入卡主，可以iphone上随便动一下应用）&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cycript -p 6690
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;(3) 进入cycript 环境后, 输入 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0]&lt;/code&gt;, 回车后得到Document数据&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; @&quot;/var/mobile/Containers/Data/Application/B4C9FFEE-FA59-4B45-BCA9-A9E5B1AEC790/Documents&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;(4) Ctr+D 关闭cycript环境, 然后进入WeChat 目录&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; cd /var/mobile/Containers/Data/Application/B4C9FFEE-FA59-4B45-BCA9-A9E5B1AEC790/Documents
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;(5) 在APP 目录下执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DYLD_INSERT_LIBRARIES=/usr/lib/dumpdecrypted.dylib app进城路径&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  DYLD_INSERT_LIBRARIES=/usr/lib/dumpdecrypted.dylib /var/containers/Bundle/Application/DCF929F2-FB53-4D92-BFB7-A4767E775033/WeChat.app/WeChat
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;(6) 执行&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ls&lt;/code&gt;命令, 会发现一个名为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;WeChat.decrypted&lt;/code&gt;的文件, 就是砸壳成功后的输出文件&lt;/p&gt;
+
+&lt;p&gt;(7) 打开mac 的终端, 将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;WeChat.decrypted&lt;/code&gt; 拷贝到本地&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dumpdecrypted&lt;/code&gt; 目录&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; scp -P 2222 root@localhost:/var/mobile/Containers/Data/Application/B4C9FFEE-FA59-4B45-BCA9-A9E5B1AEC790/Documents/WeChat.decrypted ./dumpdecrypted
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;(8) 提取头文件&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; class-dump --arch arm64 WeChat.decrypted -H -o ./Headers
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;备注&lt;/strong&gt;
+ 如果遇到以下问题, &lt;a href=&quot;https://iosre.com/t/solved-classdump-error-cannot-find-offset-for-address-xxxxx-in-stringataddress/10626&quot;&gt;参见&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; Error: Cannot find offset for address 0x50000000010a737b in stringAtAddress:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;可能的原因是: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Usually this is caused by swift code embedded with ObjC code.&lt;/code&gt;
+ 此时需要更换 [class-dump] (https://github.com/AloneMonkey/MonkeyDev/blob/master/bin/class-dump), 参照class-dump配置, 重新设置&lt;/p&gt;
+
+&lt;p&gt;参见: 
+&lt;a href=&quot;https://www.jianshu.com/p/395212061564&quot;&gt;iOS砸壳（dumpdecrypted)&lt;/a&gt;
+&lt;a href=&quot;https://bbs.pediy.com/thread-263907.htm&quot;&gt;dumpdecrypted砸壳高版本iOS（如iOS12）的正确姿势&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 16 Apr 2022 15:12:52 +0800</pubDate>
+        <link>http://cuiyinjiang.com/2022/04/iOS_%E7%A0%B8%E5%A3%B3/</link>
+        <guid isPermaLink="true">http://cuiyinjiang.com/2022/04/iOS_%E7%A0%B8%E5%A3%B3/</guid>
+        
+        <category>逆向</category>
+        
+        
+        <category>Reverse</category>
+        
+      </item>
+    
+      <item>
+        <title>Mac M1 安装 jekyll</title>
+        <description>&lt;h1 id=&quot;mac-m1-安装-jekyll&quot;&gt;Mac M1 安装 jekyll&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-配置环境&quot;&gt;1. 配置环境&lt;/h2&gt;
+&lt;h3 id=&quot;11-配置命令行工具-xcode-select---install&quot;&gt;1.1 配置命令行工具 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xcode-select --install&lt;/code&gt;&lt;/h3&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;12-安装-homebrew&quot;&gt;1.2 安装 Homebrew&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;13-安装-rbenv&quot;&gt;1.3 安装 Rbenv&lt;/h3&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew install rbenv ruby-build
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;14-安装基于arm的-ruby-300&quot;&gt;1.4 安装基于ARM的 Ruby 3.0.0&lt;/h3&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rbenv install 3.0.0
+rbenv global 3.0.0
+ruby -v
+rbenv rehash
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;15-添加-ruby-运行环境&quot;&gt;1.5 添加 ruby 运行环境&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;zsh环境: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo &apos;eval &quot;$(rbenv init - zsh)&quot;&apos; &amp;gt;&amp;gt; ~/.zshrc&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;bash环境: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo &apos;eval &quot;$(rbenv init - bash)&quot;&apos; &amp;gt;&amp;gt; ~/.bash_profile&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;```
+echo ‘export PATH=”/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH”’ » ~/.zshrc&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## 2. 安装 Jekyll
+## 2.1 安装 Jekyll和 Bundler
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;gem install –user-install bundler jekyll&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;### 2.2 添加环境变量
+- zsh环境: `echo &apos;export PATH=&quot;/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH&quot;&apos; &amp;gt;&amp;gt; ~/.zshrc
+`
+- bash环境: `echo &apos;export PATH=&quot;/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH&quot;&apos; &amp;gt;&amp;gt; ~/.bash_profile
+`
+
+## 3. 创建和发布文章
+
+### 3.1 创建网站
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;jekyll new my-awesome-site
+cd my-awesome-site
+bundle update –bundler
+bundle add webrick
+bundle install –redownload
+bundle exec jekyll serve&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;打开`http://127.0.0.1:4000/`, 即可看到网站
+如果启动失败
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;           ------------------------------------------------
+  Jekyll 4.2.2   Please append `--trace` to the `serve` command
+                 for any additional information or backtrace.
+                ------------------------------------------------ ```
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;需要执行&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bundle add webrick.&lt;/code&gt;&lt;a href=&quot;https://github.com/jekyll/jekyll/issues/8523&quot;&gt;参见&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;31-创建文章&quot;&gt;3.1 创建文章&lt;/h3&gt;
+&lt;p&gt;在_post下创建md文件, 如&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2022-04-16-welcome-to-jekyll.markdown&lt;/code&gt;,
+文件的开头:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;---
+layout: post
+title:  &quot;Welcome to Jekyll!&quot;
+date:   2022-04-16 15:12:52 +0800
+categories: jekyll update
+tags: 所属标签
+---
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;32-build&quot;&gt;3.2 Build&lt;/h3&gt;
+&lt;p&gt;执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jekyll b&lt;/code&gt; 进行数据转化, 刷新&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://127.0.0.1:4000/&lt;/code&gt;看效果&lt;/p&gt;
+
+&lt;h3 id=&quot;4-参见&quot;&gt;4. 参见:&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.earthinversion.com/blogging/how-to-install-jekyll-on-appple-m1-macbook/&quot;&gt;How to install jekyll on Apple M1 Macbook&lt;/a&gt;
+&lt;a href=&quot;http://leopardpan.cn/2016/10/jekyll_tutorials1/&quot;&gt;Jekyll搭建个人博客&lt;/a&gt;
+&lt;a href=&quot;https://www.jekyll.com.cn/&quot;&gt;jekyll&lt;/a&gt;
+&lt;a href=&quot;https://www.jekyll.com.cn/docs/configuration/&quot;&gt;jekyll 配置&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 16 Apr 2022 15:12:52 +0800</pubDate>
+        <link>http://cuiyinjiang.com/2022/04/Jekyll/</link>
+        <guid isPermaLink="true">http://cuiyinjiang.com/2022/04/Jekyll/</guid>
+        
+        <category>其他</category>
+        
+        
+        <category>jekyll</category>
+        
+      </item>
     
   </channel>
 </rss>
