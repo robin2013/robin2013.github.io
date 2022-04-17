@@ -5,8 +5,8 @@
     <description>欢迎来到我的个人站~</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 17 Apr 2022 11:31:14 +0800</pubDate>
-    <lastBuildDate>Sun, 17 Apr 2022 11:31:14 +0800</lastBuildDate>
+    <pubDate>Sun, 17 Apr 2022 11:47:10 +0800</pubDate>
+    <lastBuildDate>Sun, 17 Apr 2022 11:47:10 +0800</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
     
       <item>
@@ -20,7 +20,7 @@
 &lt;p&gt;在阅读dyld源码的过程中, 好多地方都会用到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;read_uleb128&lt;/code&gt; 方法,该方法的作用, 就是解析内存中的LEB128数据.&lt;/p&gt;
 
 &lt;h2 id=&quot;2-leb128数据的构成&quot;&gt;2. LEB128数据的构成:&lt;/h2&gt;
-&lt;p&gt;数据格式:
+&lt;p&gt;数据在小端模式的表示(FIrst Byte 为低字节, Second Byte 为高字节):
 &lt;img src=&quot;/images/2022/dyld/LEB128/leb128.png&quot; alt=&quot;LEB128&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;要点:&lt;/p&gt;
