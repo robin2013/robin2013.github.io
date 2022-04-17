@@ -1,0 +1,14 @@
+I"�<h1 id="mac-pro-连接-ntfs">Mac Pro 连接 NTFS</h1>
+
+<ol>
+  <li>
+    <p>插入磁盘
+打开Terminal，输入diskutil list</p>
+  </li>
+  <li>创建(修改)/etc/fstab文件 `sudo vim /etc/fstab</li>
+  <li>输入密码，然后输入LABEL=Elements none ntfs rw,auto,nobrowse，其中Elements就是你的磁盘名字。
+然后重启就可以了，不过这时桌面看不到 U盘。因为这个Elements分区是挂/Volumes下的。</li>
+</ol>
+
+<p><a href="https://www.jianshu.com/p/a481cfa392da">参见</a></p>
+:ET

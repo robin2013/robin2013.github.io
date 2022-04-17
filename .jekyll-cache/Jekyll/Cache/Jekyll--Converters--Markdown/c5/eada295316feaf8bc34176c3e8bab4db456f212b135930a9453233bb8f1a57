@@ -1,4 +1,4 @@
-I"�<h1 id="mac-m1-安装-jekyll">Mac M1 安装 jekyll</h1>
+I"�<h1 id="mac-m1-安装-jekyll">Mac M1 安装 jekyll</h1>
 
 <h2 id="1-配置环境">1. 配置环境</h2>
 <h3 id="11-配置命令行工具-xcode-select---install">1.1 配置命令行工具 <code class="language-plaintext highlighter-rouge">xcode-select --install</code></h3>
@@ -72,8 +72,8 @@ tags: 所属标签
 </code></pre></div></div>
 
 <h3 id="32-build">3.2 Build</h3>
-<p>执行 <code class="language-plaintext highlighter-rouge">jekyll b</code> 进行数据转化, 刷新<code class="language-plaintext highlighter-rouge">http://127.0.0.1:4000/</code>看效果</p>
-
+<p>执行 <code class="language-plaintext highlighter-rouge">jekyll b</code> 进行数据转化, 刷新<code class="language-plaintext highlighter-rouge">http://127.0.0.1:4000/</code>看效果
+<strong>备注</strong> 也可以在github 上配置”Github Actions”, 选择<code class="language-plaintext highlighter-rouge">Jekyll</code>, 实现提交后自动执行<code class="language-plaintext highlighter-rouge">jekyll b</code> 命令</p>
 <h3 id="4-参见">4. 参见:</h3>
 <p><a href="https://www.earthinversion.com/blogging/how-to-install-jekyll-on-appple-m1-macbook/">How to install jekyll on Apple M1 Macbook</a>
 <a href="http://leopardpan.cn/2016/10/jekyll_tutorials1/">Jekyll搭建个人博客</a>

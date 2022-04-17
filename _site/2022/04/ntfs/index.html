@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>Mac M1 安装 jekyll</title>
-  <meta name="description" content="Mac M1 安装 jekyll">
+  <title>Mac Pro 连接 NTFS</title>
+  <meta name="description" content="Mac Pro 连接 NTFS">
   <meta name="author" content="leopardpan">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Mac M1 安装 jekyll">
-  <meta name="twitter:description" content="Mac M1 安装 jekyll">
+  <meta name="twitter:title" content="Mac Pro 连接 NTFS">
+  <meta name="twitter:description" content="Mac Pro 连接 NTFS">
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Mac M1 安装 jekyll">
-  <meta property="og:description" content="Mac M1 安装 jekyll">
+  <meta property="og:title" content="Mac Pro 连接 NTFS">
+  <meta property="og:description" content="Mac Pro 连接 NTFS">
   
   <link rel="icon" type="image/png" href="/images/favicon.png" />
   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="/css/main.css">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="canonical" href="http://localhost:4000/2022/04/Jekyll/">
+  <link rel="canonical" href="http://localhost:4000/2022/04/ntfs/">
   <link rel="alternate" type="application/rss+xml" title="Robin Cui" href="http://localhost:4000/feed.xml">
   
   <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
@@ -169,7 +169,7 @@
 
 <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
-    <h1 class="post-title">Mac M1 安装 jekyll</h1>
+    <h1 class="post-title">Mac Pro 连接 NTFS</h1>
     <div class="post-meta">
       <img src="/images/calendar.png" width="20px"/> 
       <time datetime="2022-04-16 15:12:52 +0800" itemprop="datePublished" class="post-meta__date date">2022-04-16</time>  
@@ -182,108 +182,25 @@
   
     <h2 class="post-title">目录</h2>
     <ul>
-  <li><a href="#mac-m1-安装-jekyll">Mac M1 安装 jekyll</a>
-    <ul>
-      <li><a href="#1-配置环境">1. 配置环境</a>
-        <ul>
-          <li><a href="#11-配置命令行工具-xcode-select---install">1.1 配置命令行工具 <code class="language-plaintext highlighter-rouge">xcode-select --install</code></a></li>
-          <li><a href="#12-安装-homebrew">1.2 安装 Homebrew</a></li>
-          <li><a href="#13-安装-rbenv">1.3 安装 Rbenv</a></li>
-          <li><a href="#14-安装基于arm的-ruby-300">1.4 安装基于ARM的 Ruby 3.0.0</a></li>
-          <li><a href="#15-添加-ruby-运行环境">1.5 添加 ruby 运行环境</a></li>
-          <li><a href="#31-创建文章">3.1 创建文章</a></li>
-          <li><a href="#32-build">3.2 Build</a></li>
-          <li><a href="#4-参见">4. 参见:</a></li>
-        </ul>
-      </li>
-    </ul>
-  </li>
+  <li><a href="#mac-pro-连接-ntfs">Mac Pro 连接 NTFS</a></li>
 </ul>
 
   
 
   <section class="post">
-    <h1 id="mac-m1-安装-jekyll">Mac M1 安装 jekyll</h1>
+    <h1 id="mac-pro-连接-ntfs">Mac Pro 连接 NTFS</h1>
 
-<h2 id="1-配置环境">1. 配置环境</h2>
-<h3 id="11-配置命令行工具-xcode-select---install">1.1 配置命令行工具 <code class="language-plaintext highlighter-rouge">xcode-select --install</code></h3>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-</code></pre></div></div>
-<h3 id="12-安装-homebrew">1.2 安装 Homebrew</h3>
+<ol>
+  <li>
+    <p>插入磁盘
+打开Terminal，输入diskutil list</p>
+  </li>
+  <li>创建(修改)/etc/fstab文件 `sudo vim /etc/fstab</li>
+  <li>输入密码，然后输入LABEL=Elements none ntfs rw,auto,nobrowse，其中Elements就是你的磁盘名字。
+然后重启就可以了，不过这时桌面看不到 U盘。因为这个Elements分区是挂/Volumes下的。</li>
+</ol>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-</code></pre></div></div>
-
-<h3 id="13-安装-rbenv">1.3 安装 Rbenv</h3>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install rbenv ruby-build
-</code></pre></div></div>
-<h3 id="14-安装基于arm的-ruby-300">1.4 安装基于ARM的 Ruby 3.0.0</h3>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rbenv install 3.0.0
-rbenv global 3.0.0
-ruby -v
-rbenv rehash
-</code></pre></div></div>
-
-<h3 id="15-添加-ruby-运行环境">1.5 添加 ruby 运行环境</h3>
-<ul>
-  <li>zsh环境: <code class="language-plaintext highlighter-rouge">echo 'eval "$(rbenv init - zsh)"' &gt;&gt; ~/.zshrc</code></li>
-  <li>bash环境: <code class="language-plaintext highlighter-rouge">echo 'eval "$(rbenv init - bash)"' &gt;&gt; ~/.bash_profile</code></li>
-  <li>```
-echo ‘export PATH=”/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH”’ » ~/.zshrc</li>
-</ul>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## 2. 安装 Jekyll
-## 2.1 安装 Jekyll和 Bundler
-</code></pre></div></div>
-<p>gem install –user-install bundler jekyll</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### 2.2 添加环境变量
-- zsh环境: `echo 'export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"' &gt;&gt; ~/.zshrc
-`
-- bash环境: `echo 'export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"' &gt;&gt; ~/.bash_profile
-`
-
-## 3. 创建和发布文章
-
-### 3.1 创建网站
-</code></pre></div></div>
-<p>jekyll new my-awesome-site
-cd my-awesome-site
-bundle update –bundler
-bundle add webrick
-bundle install –redownload
-bundle exec jekyll serve</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>打开`http://127.0.0.1:4000/`, 即可看到网站
-如果启动失败
-</code></pre></div></div>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>           ------------------------------------------------
-  Jekyll 4.2.2   Please append `--trace` to the `serve` command
-                 for any additional information or backtrace.
-                ------------------------------------------------ ```
-</code></pre></div></div>
-
-<p>需要执行<code class="language-plaintext highlighter-rouge">bundle add webrick.</code><a href="https://github.com/jekyll/jekyll/issues/8523">参见</a></p>
-
-<h3 id="31-创建文章">3.1 创建文章</h3>
-<p>在_post下创建md文件, 如<code class="language-plaintext highlighter-rouge">2022-04-16-welcome-to-jekyll.markdown</code>,
-文件的开头:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
-layout: post
-title:  "Welcome to Jekyll!"
-date:   2022-04-16 15:12:52 +0800
-categories: jekyll update
-tags: 所属标签
----
-</code></pre></div></div>
-
-<h3 id="32-build">3.2 Build</h3>
-<p>执行 <code class="language-plaintext highlighter-rouge">jekyll b</code> 进行数据转化, 刷新<code class="language-plaintext highlighter-rouge">http://127.0.0.1:4000/</code>看效果
-<strong>备注</strong> 也可以在github 上配置”Github Actions”, 选择<code class="language-plaintext highlighter-rouge">Jekyll</code>, 实现提交后自动执行<code class="language-plaintext highlighter-rouge">jekyll b</code> 命令</p>
-<h3 id="4-参见">4. 参见:</h3>
-<p><a href="https://www.earthinversion.com/blogging/how-to-install-jekyll-on-appple-m1-macbook/">How to install jekyll on Apple M1 Macbook</a>
-<a href="http://leopardpan.cn/2016/10/jekyll_tutorials1/">Jekyll搭建个人博客</a>
-<a href="https://www.jekyll.com.cn/">jekyll</a>
-<a href="https://www.jekyll.com.cn/docs/configuration/">jekyll 配置</a></p>
+<p><a href="https://www.jianshu.com/p/a481cfa392da">参见</a></p>
 
   </section>
 
@@ -353,13 +270,13 @@ tags: 所属标签
        <ul class="pager">
         
         <li class="previous">
-            <a href="/2022/04/DebugServer/" data-toggle="tooltip" data-placement="top" title="DebugServer">上一篇：  <span>DebugServer</span>
+            <a href="/2022/04/iOS_%E7%A0%B8%E5%A3%B3/" data-toggle="tooltip" data-placement="top" title="iOS 砸壳">上一篇：  <span>iOS 砸壳</span>
             </a>
         </li>
         
         
         <li class="next">
-            <a href="/2022/04/iOS_%E7%A0%B8%E5%A3%B3/" data-toggle="tooltip" data-placement="top" title="iOS 砸壳">下一篇：  <span>iOS 砸壳</span>
+            <a href="/2022/04/leb128/" data-toggle="tooltip" data-placement="top" title="LEB128格式简介">下一篇：  <span>LEB128格式简介</span>
             </a>
         </li>
         

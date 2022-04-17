@@ -5,9 +5,164 @@
     <description>欢迎来到我的个人站~</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 16 Apr 2022 21:42:05 +0800</pubDate>
-    <lastBuildDate>Sat, 16 Apr 2022 21:42:05 +0800</lastBuildDate>
+    <pubDate>Sun, 17 Apr 2022 11:23:45 +0800</pubDate>
+    <lastBuildDate>Sun, 17 Apr 2022 11:23:45 +0800</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
+    
+      <item>
+        <title>LEB128格式简介</title>
+        <description>&lt;h1 id=&quot;leb128格式简介&quot;&gt;LEB128格式简介&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-写在前面&quot;&gt;1. 写在前面:&lt;/h2&gt;
+&lt;p&gt;LEB128即”Little-Endian Base 128”，基于128的小印第安序编码格式，是对任意有符号或者无符号整型数的可变长度的编码。
+ LEB128( Little Endian Base 128 ) 这个数据格式。它是一个变长的数据格式（所占的字节数可变）其分为 unsinged LEB128 和 signed LEB128&lt;/p&gt;
+
+&lt;p&gt;在阅读dyld源码的过程中, 好多地方都会用到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;read_uleb128&lt;/code&gt; 函数:&lt;/p&gt;
+
+&lt;p&gt;该方法的作用, 就是解析内存中的LEB128数据&lt;/p&gt;
+
+&lt;h2 id=&quot;2-leb128数据的构成&quot;&gt;2. LEB128数据的构成:&lt;/h2&gt;
+&lt;p&gt;数据格式:
+&lt;img src=&quot;/images/2022/dyld/LEB128/leb128.png&quot; alt=&quot;LEB128&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;要点:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;LEB128数据转换成2进制数据后, 每个字节只有bit0 – bit6 位是有效位&lt;/li&gt;
+  &lt;li&gt;LEB128数据每个自己的最高位不是有效数字, 只能是0 或 1&lt;/li&gt;
+  &lt;li&gt;LEB128数据的最低位字节的bit 7 是0, 其他高位字节的bit 7 均为 1&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;将leb128编码的数字转换为可读数字的规则是：除去每个字节的bit7，将每个字节剩余的7个bits拼接在一起，即为数字。&lt;/p&gt;
+
+&lt;h2 id=&quot;3-leb128-无符号读取&quot;&gt;3. LEB128 无符号读取&lt;/h2&gt;
+&lt;p&gt;LEB128的wiki上比较清楚的表示了一个如何把一个无符号的整型数压缩位3个bytes的LEB128格式。&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+10011000011101100101 是 624485的2进制表示
+
+010011000011101100101 把2进制的表示的bit扩展为能被7整除(不足的加0)
+
+0100110 0001110 1100101 再以7-bit为一组进行分组
+
+00100110 10001110 11100101 把第一组+0扩展为8bit，而其余的都+1扩展为8bit
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;dyld源代码中的读取函数:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;uintptr_t ImageLoader::read_uleb128(const uint8_t*&amp;amp; p, const uint8_t* end)
+{
+	uint64_t result = 0;
+	int		 bit = 0;
+	do {
+		if (p == end)
+			dyld::throwf(&quot;malformed uleb128&quot;);
+// 获取低七位数据 即 &amp;amp; 0111 1111
+		uint64_t slice = *p &amp;amp; 0x7f;
+// 如果移位大于64, 说明已超出arm64 架构的取值范围
+		if (bit &amp;gt; 63)
+			dyld::throwf(&quot;uleb128 too big for uint64, bit=%d, result=0x%0llX&quot;, bit, result);
+		else {
+			result |= (slice &amp;lt;&amp;lt; bit);// 记录当前数据
+			bit += 7; // 向高位移动七位(右边补7个000)
+		}
+	} while (*p++ &amp;amp; 0x80);// 如果字节的bit7为是1( 0x80 -&amp;gt; 1000 0000), 说明还没有取到最高位
+	return result;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;4-leb128-有符号读取&quot;&gt;4. LEB128 有符号读取&lt;/h2&gt;
+&lt;p&gt;而对于有符号的转换只有文字描述，下面我套用无符号的格式，描述一下有符号的压缩&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-624485的2补码计算过程:
+原码: 1 10011000011101100101 
+反码: 1 01100111100010011010 
+补码: 1 01100111100010011011  
+
+01100111100010011011 -624485的2进制表示(补码)
+
+001100111100010011011 把2进制的表示扩展为能被7整除
+
+0011001 1110001 0011011 再以7-bit为一组进行分组
+
+01011001 11110001 10011011 把第一组+0扩展为8bit，而其余的都根据原整形数的符号位来扩展为8bit(所以这里最后两个7bit组都是+1来扩展的)
+
+0x59 0xf1 0x9b 结果表示位16进制
+
+0x9b 0xf1 0x59 最终在内存中的表示
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;读取函数:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;intptr_t ImageLoader::read_sleb128(const uint8_t*&amp;amp; p, const uint8_t* end)
+{
+	int64_t result = 0;
+	int bit = 0;
+	uint8_t byte;
+	do {
+		if (p == end)
+			throw &quot;malformed sleb128&quot;;
+			// byte 先指向最低字节
+		byte = *p++;
+		// byte 获取低七位数据, 并做相应移位
+		result |= (((int64_t)(byte &amp;amp; 0x7f)) &amp;lt;&amp;lt; bit);
+		bit += 7; // 移向更高字节
+	} while (byte &amp;amp; 0x80); // 如果字节的bit7为是1( 0x80 -&amp;gt; 1000 0000), 说明还没有取到最高位
+	// sign extend negative numbers
+	if ( (byte &amp;amp; 0x40) != 0 ) 
+		result |= (-1LL) &amp;lt;&amp;lt; bit; // 补上符号位
+	return result;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;5-举例&quot;&gt;5. 举例&lt;/h2&gt;
+&lt;p&gt;dyld 加载动态库过程中, 解析 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Dynamic Loader Info&lt;/code&gt; -&amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Lazy BIngding Info&lt;/code&gt; -&amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Opcodes&lt;/code&gt; 时, 会经常用到LEB128:
+&lt;img src=&quot;/images/2022/dyld/LEB128/example.jpg&quot; alt=&quot;LEB128&quot; /&gt;
+由于iOS 采用小段模式 0x880B 在内存中的, 真正的数据格式是0x0B88, 2进制表示:
+00001011 10001000
+按照无符号转换规则:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;低字节去掉最高位1, 即 0001000&lt;/li&gt;
+  &lt;li&gt;高字节去掉最高位0, 即 0001011&lt;/li&gt;
+  &lt;li&gt;合并 00 0001011 0001000 即十进制1416&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;6-参见&quot;&gt;6. 参见:&lt;/h2&gt;
+&lt;p&gt;补码&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-16的原码是110000。反码是101111（负数的反码符号位不变，数值为1变为0，0变为1）。补码是110000（负数的补码位反码+1）
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/weixin_32098487/article/details/117174226&quot;&gt;c语言leb128编码,DalVik学习之LEB128是神马&lt;/a&gt;
+&lt;a href=&quot;https://blog.csdn.net/new_abc/article/details/36412081&quot;&gt;LEB128格式简介（CN）&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 17 Apr 2022 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/04/leb128/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/04/leb128/</guid>
+        
+        <category>dyld</category>
+        
+        
+        <category>dyld</category>
+        
+      </item>
+    
+      <item>
+        <title>Mac Pro 连接 NTFS</title>
+        <description>&lt;h1 id=&quot;mac-pro-连接-ntfs&quot;&gt;Mac Pro 连接 NTFS&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;插入磁盘
+打开Terminal，输入diskutil list&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;创建(修改)/etc/fstab文件 `sudo vim /etc/fstab&lt;/li&gt;
+  &lt;li&gt;输入密码，然后输入LABEL=Elements none ntfs rw,auto,nobrowse，其中Elements就是你的磁盘名字。
+然后重启就可以了，不过这时桌面看不到 U盘。因为这个Elements分区是挂/Volumes下的。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.jianshu.com/p/a481cfa392da&quot;&gt;参见&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 16 Apr 2022 15:12:52 +0800</pubDate>
+        <link>http://localhost:4000/2022/04/ntfs/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/04/ntfs/</guid>
+        
+        <category>其他</category>
+        
+        
+        <category>ntfs</category>
+        
+      </item>
     
       <item>
         <title>iOS 砸壳</title>
@@ -208,8 +363,8 @@ tags: 所属标签
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;32-build&quot;&gt;3.2 Build&lt;/h3&gt;
-&lt;p&gt;执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jekyll b&lt;/code&gt; 进行数据转化, 刷新&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://127.0.0.1:4000/&lt;/code&gt;看效果&lt;/p&gt;
-
+&lt;p&gt;执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jekyll b&lt;/code&gt; 进行数据转化, 刷新&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://127.0.0.1:4000/&lt;/code&gt;看效果
+&lt;strong&gt;备注&lt;/strong&gt; 也可以在github 上配置”Github Actions”, 选择&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Jekyll&lt;/code&gt;, 实现提交后自动执行&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jekyll b&lt;/code&gt; 命令&lt;/p&gt;
 &lt;h3 id=&quot;4-参见&quot;&gt;4. 参见:&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.earthinversion.com/blogging/how-to-install-jekyll-on-appple-m1-macbook/&quot;&gt;How to install jekyll on Apple M1 Macbook&lt;/a&gt;
 &lt;a href=&quot;http://leopardpan.cn/2016/10/jekyll_tutorials1/&quot;&gt;Jekyll搭建个人博客&lt;/a&gt;

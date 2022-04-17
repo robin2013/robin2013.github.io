@@ -1,0 +1,116 @@
+I"$<h1 id="leb128格式简介">LEB128格式简介</h1>
+
+<h2 id="1-写在前面">1. 写在前面:</h2>
+<p>LEB128即”Little-Endian Base 128”，基于128的小印第安序编码格式，是对任意有符号或者无符号整型数的可变长度的编码。
+ LEB128( Little Endian Base 128 ) 这个数据格式。它是一个变长的数据格式（所占的字节数可变）其分为 unsinged LEB128 和 signed LEB128</p>
+
+<p>在阅读dyld源码的过程中, 好多地方都会用到 <code class="language-plaintext highlighter-rouge">read_uleb128</code> 函数:</p>
+
+<p>该方法的作用, 就是解析内存中的LEB128数据</p>
+
+<h2 id="2-leb128数据的构成">2. LEB128数据的构成:</h2>
+<p>数据格式:
+<img src="/images/2022/dyld/LEB128/leb128.jpg" alt="LEB128" /></p>
+
+<p>要点:</p>
+<ul>
+  <li>LEB128数据转换成2进制数据后, 每个字节只有bit0 – bit6 位是有效位</li>
+  <li>LEB128数据每个自己的最高位不是有效数字, 只能是0 或 1</li>
+  <li>LEB128数据的最低位字节的bit 7 是0, 其他高位字节的bit 7 均为 1</li>
+</ul>
+
+<p>将leb128编码的数字转换为可读数字的规则是：除去每个字节的bit7，将每个字节剩余的7个bits拼接在一起，即为数字。</p>
+
+<h2 id="3-leb128-无符号读取">3. LEB128 无符号读取</h2>
+<p>LEB128的wiki上比较清楚的表示了一个如何把一个无符号的整型数压缩位3个bytes的LEB128格式。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+10011000011101100101 是 624485的2进制表示
+
+010011000011101100101 把2进制的表示的bit扩展为能被7整除(不足的加0)
+
+0100110 0001110 1100101 再以7-bit为一组进行分组
+
+00100110 10001110 11100101 把第一组+0扩展为8bit，而其余的都+1扩展为8bit
+</code></pre></div></div>
+<p>dyld源代码中的读取函数:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uintptr_t ImageLoader::read_uleb128(const uint8_t*&amp; p, const uint8_t* end)
+{
+	uint64_t result = 0;
+	int		 bit = 0;
+	do {
+		if (p == end)
+			dyld::throwf("malformed uleb128");
+// 获取低七位数据 即 &amp; 0111 1111
+		uint64_t slice = *p &amp; 0x7f;
+// 如果移位大于64, 说明已超出arm64 架构的取值范围
+		if (bit &gt; 63)
+			dyld::throwf("uleb128 too big for uint64, bit=%d, result=0x%0llX", bit, result);
+		else {
+			result |= (slice &lt;&lt; bit);// 记录当前数据
+			bit += 7; // 向高位移动七位(右边补7个000)
+		}
+	} while (*p++ &amp; 0x80);// 如果字节的bit7为是1( 0x80 -&gt; 1000 0000), 说明还没有取到最高位
+	return result;
+}
+</code></pre></div></div>
+<h2 id="4-leb128-有符号读取">4. LEB128 有符号读取</h2>
+<p>而对于有符号的转换只有文字描述，下面我套用无符号的格式，描述一下有符号的压缩</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-624485的2补码计算过程:
+原码: 1 10011000011101100101 
+反码: 1 01100111100010011010 
+补码: 1 01100111100010011011  
+
+01100111100010011011 -624485的2进制表示(补码)
+
+001100111100010011011 把2进制的表示扩展为能被7整除
+
+0011001 1110001 0011011 再以7-bit为一组进行分组
+
+01011001 11110001 10011011 把第一组+0扩展为8bit，而其余的都根据原整形数的符号位来扩展为8bit(所以这里最后两个7bit组都是+1来扩展的)
+
+0x59 0xf1 0x9b 结果表示位16进制
+
+0x9b 0xf1 0x59 最终在内存中的表示
+</code></pre></div></div>
+
+<p>读取函数:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>intptr_t ImageLoader::read_sleb128(const uint8_t*&amp; p, const uint8_t* end)
+{
+	int64_t result = 0;
+	int bit = 0;
+	uint8_t byte;
+	do {
+		if (p == end)
+			throw "malformed sleb128";
+			// byte 先指向最低字节
+		byte = *p++;
+		// byte 获取低七位数据, 并做相应移位
+		result |= (((int64_t)(byte &amp; 0x7f)) &lt;&lt; bit);
+		bit += 7; // 移向更高字节
+	} while (byte &amp; 0x80); // 如果字节的bit7为是1( 0x80 -&gt; 1000 0000), 说明还没有取到最高位
+	// sign extend negative numbers
+	if ( (byte &amp; 0x40) != 0 ) 
+		result |= (-1LL) &lt;&lt; bit; // 补上符号位
+	return result;
+}
+</code></pre></div></div>
+<h2 id="5-举例">5. 举例</h2>
+<p>dyld 加载动态库过程中, 解析 <code class="language-plaintext highlighter-rouge">Dynamic Loader Info</code> -&gt; <code class="language-plaintext highlighter-rouge">Lazy BIngding Info</code> -&gt; <code class="language-plaintext highlighter-rouge">Opcodes</code> 时, 会经常用到LEB128:
+<img src="/images/avatar.jpg" alt="" />
+<img src="/images/2022/dyld/LEB128/example.jpg" alt="LEB128" />
+由于iOS 采用小段模式 0x880B 在内存中的, 真正的数据格式是0x0B80, 2进制表示:
+00001011 10000000
+按照无符号转换规则:</p>
+<ul>
+  <li>低字节去掉最高位1, 即 0000000</li>
+  <li>高字节去掉最高位0, 即 0001011</li>
+  <li>合并 00 0001011 0000000 即十进制1408</li>
+</ul>
+
+<h2 id="6-参见">6. 参见:</h2>
+<p>补码</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-16的原码是110000。反码是101111（负数的反码符号位不变，数值为1变为0，0变为1）。补码是110000（负数的补码位反码+1）
+</code></pre></div></div>
+<p><a href="https://blog.csdn.net/weixin_32098487/article/details/117174226">c语言leb128编码,DalVik学习之LEB128是神马</a>
+<a href="https://blog.csdn.net/new_abc/article/details/36412081">LEB128格式简介（CN）</a></p>
+:ET
